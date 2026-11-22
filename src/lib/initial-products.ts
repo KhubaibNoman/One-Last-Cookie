@@ -1,0 +1,112 @@
+export interface BakeryProduct {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  price: string;
+  basePrice?: string;
+  salePrice?: string;
+  category: string;
+  categorySlug: string;
+  imageUrl: string;
+  inStock: boolean;
+  featured: boolean;
+  ingredients?: string[];
+  tasteNotes?: string;
+}
+
+export const INITIAL_PRODUCTS: BakeryProduct[] = [
+  {
+    id: 'prod-1',
+    name: 'Artisan Chocolate Chip Cookies',
+    slug: 'chocolate-chip-cookies',
+    description: 'Soft, chewy golden cookies loaded with premium dark Belgian chocolate morsels. Freshly baked with pure European butter.',
+    price: '550',
+    basePrice: '650',
+    salePrice: '550',
+    category: 'Cookies',
+    categorySlug: 'cookies',
+    imageUrl: '/bakery/chocolate-chip-cookie.jpg',
+    inStock: true,
+    featured: true,
+    ingredients: ['Rich cocoa powder', 'Dark chocolate', 'Powdered sugar', 'Brown Sugar', 'Organic Flour'],
+    tasteNotes: 'Caramelized edges, molten chocolate interior, subtle Maldon sea salt finish.',
+  },
+  {
+    id: 'prod-2',
+    name: 'Lemon Zest Coconut Cake',
+    slug: 'lemon-zest-coconut-cake',
+    description: 'A slice of sunshine — ultra-moist sponge infused with fresh organic lemon zest and topped with fragrant toasted coconut flakes.',
+    price: '950',
+    basePrice: '950',
+    category: 'Cakes',
+    categorySlug: 'cakes',
+    imageUrl: '/bakery/bakery-2.jpg',
+    inStock: true,
+    featured: true,
+    ingredients: ['Fresh Lemon Zest', 'Pure Coconut Shavings', 'Almond Flour', 'Organic Cane Sugar', 'Sweet Cream Butter'],
+    tasteNotes: 'Bright citrus aroma, delicate coconut texture, melt-in-mouth crumb.',
+  },
+  {
+    id: 'prod-3',
+    name: 'Red Velvet White Chocolate Cookies',
+    slug: 'red-velvet-cookies',
+    description: 'Vibrant crimson cookies rich in cocoa, dotted with creamy Swiss white chocolate chips and dusted with sweet powdered snow.',
+    price: '650',
+    basePrice: '750',
+    salePrice: '650',
+    category: 'Cookies',
+    categorySlug: 'cookies',
+    imageUrl: '/bakery/bakery-6.jpg',
+    inStock: true,
+    featured: true,
+    ingredients: ['Valrhona Cocoa', 'Swiss White Chocolate', 'Buttermilk', 'Tahitian Vanilla', 'Confectioners Sugar'],
+    tasteNotes: 'Deep cocoa warmth with velvety sweet white chocolate balance.',
+  },
+  {
+    id: 'prod-4',
+    name: 'Orange Zest Bites',
+    slug: 'orange-zest-bites',
+    description: 'A burst of Mediterranean sunshine in every bite. Soft, crumbly squares steeped in Valencia orange zest with subtle dark chocolate base.',
+    price: '850',
+    basePrice: '850',
+    category: 'Pastries',
+    categorySlug: 'pastries',
+    imageUrl: '/bakery/bakery-5.jpg',
+    inStock: true,
+    featured: true,
+    ingredients: ['Valencia Orange Zest', 'Organic Semolina', 'Dark Chocolate Base', 'Wildflower Honey', 'Pure Butter'],
+    tasteNotes: 'Tangy citrus sweetness, toasted base notes, delicate crumb.',
+  },
+  {
+    id: 'prod-5',
+    name: 'Signature Chef Selection Box',
+    slug: 'signature-selection-box',
+    description: 'A master pairing of our most beloved creations: Lemon Zest Coconut Cake slices accompanied by freshly warm Red Velvet cookies.',
+    price: '3200',
+    basePrice: '3800',
+    salePrice: '3200',
+    category: 'Pastries',
+    categorySlug: 'pastries',
+    imageUrl: '/bakery/bakery-3.jpg',
+    inStock: true,
+    featured: false,
+    ingredients: ['Assorted Chef Ingredients', 'Fresh Citrus', 'Finest Chocolates', 'Artisan Butter'],
+    tasteNotes: 'The complete One Last Cookie tasting journey.',
+  },
+  {
+    id: 'prod-8',
+    name: 'Golden Batch Platter Cookies',
+    slug: 'golden-batch-cookies',
+    description: 'Served warm in our bakery ceramic platter: a full row of plump, golden chocolate chip cookies with gooey molten centers.',
+    price: '2400',
+    basePrice: '2400',
+    category: 'Cookies',
+    categorySlug: 'cookies',
+    imageUrl: '/bakery/bakery-8.jpg',
+    inStock: true,
+    featured: false,
+    ingredients: ['Creamery Butter', 'Semi-Sweet Chocolate Chips', 'Brown Sugar', 'Sea Salt'],
+    tasteNotes: 'Warm comfort, nostalgic richness, unbeatable aroma.',
+  },
+];

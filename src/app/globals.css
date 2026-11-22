@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #F9F5EE;
+  --color-dark: #1C1008;
+  --color-gold: #C9A96E;
+  --color-gold-light: #E8D5B0;
+  --color-muted: #8B7355;
+  
+  --font-cormorant: var(--font-cormorant);
+  --font-inter: var(--font-inter);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-inter), sans-serif;
+  background-color: #FAF8F5;
+  color: #1C1008;
+}
+
+::selection {
+  background-color: #C9A96E;
+  color: #1C1008;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-cormorant), serif;
+}
+
+.font-display {
+  font-family: var(--font-cormorant), serif;
+}
+
+/* Grain overlay */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F9F5EE;
+}
+::-webkit-scrollbar-thumb {
+  background: #C9A96E;
+  border-radius: 3px;
+}
+
+/* Particle canvas */
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
