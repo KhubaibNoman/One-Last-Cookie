@@ -1,14 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { db, isDatabaseConfigured } from '@/lib/db';
 import { products, categories } from '@/lib/schema';
 import { eq } from 'drizzle-orm';
 import { INITIAL_PRODUCTS } from '@/lib/initial-products';
 
 export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const categorySlug = searchParams.get('category');
+  const featured = searchParams.get('featured');
+
+  if (!isDatabaseConfigured) {
+    let fallback = INITIAL_PRODUCTS;
+    if (categorySlug) {
+      fallback = fallback.filter((p) => p.categorySlug === categorySlug);
+    }
+    if (featured === 'true') {
+      fallback = fallback.filter((p) => p.featured);
+    }
+    return NextResponse.json(fallback);
+  }
+
   try {
-    const { searchParams } = new URL(request.url);
-    const categorySlug = searchParams.get('category');
-    const featured = searchParams.get('featured');
 
     const result = await db
       .select({
@@ -31,10 +43,10 @@ export async function GET(request: NextRequest) {
     if (result && result.length > 0) {
       let filtered = result;
       if (categorySlug) {
-        filtered = filtered.filter((p) => p.categorySlug === categorySlug);
+        filtered = filtered.filter((p: any) => p.categorySlug === categorySlug);
       }
       if (featured === 'true') {
-        filtered = filtered.filter((p) => p.featured);
+        filtered = filtered.filter((p: any) => p.featured);
       }
       return NextResponse.json(filtered);
     }

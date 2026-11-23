@@ -1,10 +1,13 @@
-import { db } from '@/lib/db';
+import { db, isDatabaseConfigured } from '@/lib/db';
 import { products, categories } from '@/lib/schema';
 import { eq } from 'drizzle-orm';
 import { INITIAL_PRODUCTS, BakeryProduct } from '@/lib/initial-products';
 import MenuCatalog from '@/components/MenuCatalog';
 
 async function getAllProducts(): Promise<BakeryProduct[]> {
+  if (!isDatabaseConfigured) {
+    return INITIAL_PRODUCTS;
+  }
   try {
     const result = await db
       .select({
@@ -23,7 +26,7 @@ async function getAllProducts(): Promise<BakeryProduct[]> {
       .leftJoin(categories, eq(products.categoryId, categories.id));
 
     if (result && result.length > 0) {
-      return result.map((p) => ({
+      return result.map((p: any) => ({
         id: p.id,
         name: p.name,
         slug: p.slug,

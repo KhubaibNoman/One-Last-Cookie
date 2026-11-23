@@ -2,7 +2,7 @@ import HeroSection from '@/components/HeroSection';
 import FeaturedProducts from '@/components/FeaturedProducts';
 import VideoShowcase from '@/components/VideoShowcase';
 import PhotoGallery from '@/components/PhotoGallery';
-import { db } from '@/lib/db';
+import { db, isDatabaseConfigured } from '@/lib/db';
 import { products } from '@/lib/schema';
 import { eq } from 'drizzle-orm';
 import { INITIAL_PRODUCTS } from '@/lib/initial-products';
@@ -10,6 +10,9 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
 async function getFeaturedProducts() {
+  if (!isDatabaseConfigured) {
+    return INITIAL_PRODUCTS.filter((p) => p.featured);
+  }
   try {
     const res = await db
       .select({

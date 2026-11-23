@@ -42,9 +42,11 @@ export default async function RootLayout({
 }) {
   const session = await auth();
   return (
-    <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${inter.variable}`} data-scroll-behavior="smooth">
       <body className="bg-[#FAF8F5] text-[#1C1008] antialiased selection:bg-[#C9A96E]/30 selection:text-[#1C1008]">
-        <SessionProvider session={session}>{children}</SessionProvider>
+        <SessionProvider session={session} refetchOnWindowFocus={false} refetchInterval={0}>
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );

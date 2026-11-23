@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import { authConfig } from './auth.config';
 import Credentials from 'next-auth/providers/credentials';
-import { db } from '@/lib/db';
+import { db, isDatabaseConfigured } from '@/lib/db';
 import { users } from '@/lib/schema';
 import { eq } from 'drizzle-orm';
 import bcrypt from 'bcryptjs';
@@ -36,6 +36,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             email: configuredAdminEmail,
             role: 'admin',
           };
+        }
+
+        if (!isDatabaseConfigured) {
+          return null;
         }
 
         try {

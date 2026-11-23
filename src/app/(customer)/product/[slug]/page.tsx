@@ -1,4 +1,4 @@
-import { db } from '@/lib/db';
+import { db, isDatabaseConfigured } from '@/lib/db';
 import { products, categories } from '@/lib/schema';
 import { eq } from 'drizzle-orm';
 import { INITIAL_PRODUCTS, BakeryProduct } from '@/lib/initial-products';
@@ -11,6 +11,9 @@ import ProductCard from '@/components/ProductCard';
 import { Sparkles, ShieldCheck, Clock, ArrowLeft } from 'lucide-react';
 
 async function getProductBySlug(slug: string): Promise<BakeryProduct | null> {
+  if (!isDatabaseConfigured) {
+    return INITIAL_PRODUCTS.find((p) => p.slug === slug) || null;
+  }
   try {
     const res = await db
       .select({
