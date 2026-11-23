@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCart } from '@/lib/store';
 import { formatPrice } from '@/lib/utils';
 import Image from 'next/image';
@@ -27,6 +27,11 @@ export default function CartPage() {
   const [customerContact, setCustomerContact] = useState('');
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const [loading, setLoading] = useState(false);
 
@@ -137,6 +142,15 @@ export default function CartPage() {
       setLoading(false);
     }
   };
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center py-24 px-6 bg-[#F9F5EE]">
+        <div className="w-8 h-8 border-2 border-[#C9A96E] border-t-transparent rounded-full animate-spin mb-4" />
+        <p className="text-[#8B7355] text-xs uppercase tracking-widest font-medium">Loading basket...</p>
+      </div>
+    );
+  }
 
   if (items.length === 0) {
     return (

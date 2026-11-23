@@ -11,6 +11,7 @@ export default function Navbar() {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const itemCount = useCart((s) => s.itemCount());
   const openDrawer = useCart((s) => s.openDrawer);
   const openSearch = useCart((s) => s.openSearch);
@@ -18,6 +19,7 @@ export default function Navbar() {
   const isAdmin = (session?.user as any)?.role === 'admin';
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
@@ -115,8 +117,11 @@ export default function Navbar() {
               <span className="text-[11px] tracking-widest uppercase font-semibold">
                 Basket
               </span>
-              <span className="ml-0.5 w-4 h-4 rounded-full bg-[#C9A96E] group-hover:bg-[#1C1008] text-[#1C1008] group-hover:text-[#FAF8F5] text-[10px] flex items-center justify-center font-bold transition-colors">
-                {itemCount}
+              <span
+                suppressHydrationWarning
+                className="ml-0.5 w-4 h-4 rounded-full bg-[#C9A96E] group-hover:bg-[#1C1008] text-[#1C1008] group-hover:text-[#FAF8F5] text-[10px] flex items-center justify-center font-bold transition-colors"
+              >
+                {mounted ? itemCount : 0}
               </span>
             </button>
 
