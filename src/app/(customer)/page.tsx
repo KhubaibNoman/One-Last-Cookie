@@ -2,7 +2,6 @@ import HeroSection from '@/components/HeroSection';
 import FeaturedProducts from '@/components/FeaturedProducts';
 import VideoShowcase from '@/components/VideoShowcase';
 import PhotoGallery from '@/components/PhotoGallery';
-import NewsletterSection from '@/components/NewsletterSection';
 import { db } from '@/lib/db';
 import { products } from '@/lib/schema';
 import { eq } from 'drizzle-orm';
@@ -79,9 +78,6 @@ export default async function HomePage() {
 
       {/* Photo Gallery with real pictures & Lightbox Modal */}
       <PhotoGallery />
-
-      {/* Newsletter / Confection Club */}
-      <NewsletterSection />
     </div>
   );
 }
