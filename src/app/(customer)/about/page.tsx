@@ -83,13 +83,24 @@ export default function AboutPage() {
           <p className="text-sm text-[#E8DFC8]/80 leading-relaxed mb-10 max-w-xl mx-auto">
             Order your favorite cookies and cakes today. Each batch is mixed by hand and baked fresh just for you.
           </p>
-          <Link
-            href="/menu"
-            className="inline-flex items-center gap-3 bg-[#C9A96E] text-[#160E08] hover:bg-[#FAF8F5] px-9 py-4 text-xs tracking-[0.25em] uppercase font-semibold transition-all duration-300 rounded-sm shadow-xl hover:shadow-[0_8px_30px_rgba(201,169,110,0.35)] group cursor-pointer"
-          >
-            <span>Explore Today&apos;s Bakes</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/menu"
+              className="inline-flex items-center gap-3 bg-[#C9A96E] text-[#160E08] hover:bg-[#FAF8F5] px-8 py-4 text-xs tracking-[0.25em] uppercase font-semibold transition-all duration-300 rounded-sm shadow-xl hover:shadow-[0_8px_30px_rgba(201,169,110,0.35)] group cursor-pointer"
+            >
+              <span>Explore Today&apos;s Bakes</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <a
+              href="https://www.instagram.com/one.last.cookie"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 border border-[#C9A96E]/50 hover:border-[#FAF8F5] text-[#FAF8F5] px-7 py-4 text-xs tracking-[0.2em] uppercase font-semibold transition-all duration-300 rounded-sm hover:bg-[#FAF8F5]/5"
+            >
+              <span>Follow on Instagram</span>
+              <span className="text-[#C9A96E]">↗</span>
+            </a>
+          </div>
         </div>
       </section>
     </div>

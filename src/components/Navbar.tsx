@@ -7,6 +7,16 @@ import { ShoppingBag, Menu, X, LogOut, Settings, Search, Sparkles } from 'lucide
 import { useCart } from '@/lib/store';
 import { motion, AnimatePresence } from 'framer-motion';
 
+function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
 export default function Navbar() {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
@@ -68,6 +78,18 @@ export default function Navbar() {
 
           {/* Right Action Controls */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Instagram Link */}
+            <a
+              href="https://www.instagram.com/one.last.cookie"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 text-[#7D6B58] hover:text-[#C9A96E] hover:bg-[#C9A96E]/10 rounded-full transition-all duration-300"
+              title="Follow @one.last.cookie on Instagram"
+              aria-label="Instagram"
+            >
+              <InstagramIcon className="w-4 h-4 stroke-[1.5]" />
+            </a>
+
             {/* Search Trigger */}
             <button
               onClick={openSearch}
@@ -175,13 +197,25 @@ export default function Navbar() {
             {/* Bottom info inside drawer */}
             <div className="pt-6 border-t border-[#C9A96E]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-[#8B7355]">
               <p>Fresh Small-Batch Home Bakery • Daily 8am – 8pm</p>
-              <Link
-                href="/admin"
-                onClick={() => setIsOpen(false)}
-                className="text-[#C9A96E] uppercase tracking-widest font-semibold flex items-center gap-1.5 hover:text-[#1C1008] transition-colors"
-              >
-                <Settings className="w-3.5 h-3.5" /> Staff Portal
-              </Link>
+              <div className="flex items-center gap-4">
+                <a
+                  href="https://www.instagram.com/one.last.cookie"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#C9A96E] hover:text-[#1C1008] uppercase tracking-widest font-semibold flex items-center gap-1.5 transition-colors"
+                >
+                  <InstagramIcon className="w-3.5 h-3.5" /> @one.last.cookie ↗
+                </a>
+                {session && isAdmin && (
+                  <Link
+                    href="/admin"
+                    onClick={() => setIsOpen(false)}
+                    className="text-[#C9A96E] uppercase tracking-widest font-semibold flex items-center gap-1.5 hover:text-[#1C1008] transition-colors"
+                  >
+                    <Settings className="w-3.5 h-3.5" /> Staff
+                  </Link>
+                )}
+              </div>
             </div>
           </motion.div>
         )}

@@ -117,7 +117,16 @@ export default function PhotoGallery() {
             The Gallery of <em className="text-[#C9A96E] italic font-serif">Creations</em>
           </h2>
           <p className="text-[#7D6B58] text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
-            Each artisanal batch photographed in our Parisian atelier. Click any creation to inspect or add directly to your basket.
+            Every batch photographed fresh from our kitchen. Follow{' '}
+            <a
+              href="https://www.instagram.com/one.last.cookie"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#C9A96E] hover:underline font-medium"
+            >
+              @one.last.cookie
+            </a>{' '}
+            on Instagram to watch our daily bakes.
           </p>
         </div>
 
@@ -270,13 +279,13 @@ export default function PhotoGallery() {
 
                   <div className="space-y-2 text-xs text-[#8B7355]">
                     <p className="flex items-center gap-2">
-                      <span className="text-[#C9A96E]">✦</span> Baked with Normandy Grade-A Butter (84%)
+                      <span className="text-[#C9A96E]">✦</span> Baked with pure premium butter & Belgian chocolate
                     </p>
                     <p className="flex items-center gap-2">
-                      <span className="text-[#C9A96E]">✦</span> Packaged in gold-stamped luxury gift box
+                      <span className="text-[#C9A96E]">✦</span> Sealed in protective artisanal bakery packaging
                     </p>
                     <p className="flex items-center gap-2">
-                      <span className="text-[#C9A96E]">✦</span> Same-day dawn oven dispatch
+                      <span className="text-[#C9A96E]">✦</span> Freshly baked to order & delivered via express courier
                     </p>
                   </div>
                 </div>
