@@ -23,7 +23,7 @@ interface GalleryItem {
 const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: 'g-1',
-    src: '/bakery/chocolate-chip-cookie.jpg',
+    src: '/bakery/classic-chocolate-chip.jpg',
     title: 'Classic Chocolate Chip Cookies',
     category: 'Cookies',
     categorySlug: 'cookies',

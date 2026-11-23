@@ -26,7 +26,7 @@ export const INITIAL_PRODUCTS: BakeryProduct[] = [
     salePrice: '550',
     category: 'Cookies',
     categorySlug: 'cookies',
-    imageUrl: '/bakery/chocolate-chip-cookie.jpg',
+    imageUrl: '/bakery/classic-chocolate-chip.jpg',
     inStock: true,
     featured: true,
     ingredients: ['Premium Belgian Chocolate', 'Creamery Butter', 'Golden Brown Sugar', 'Farm Eggs', 'Maldon Salt'],

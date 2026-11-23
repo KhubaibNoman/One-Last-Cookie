@@ -15,7 +15,7 @@ const heroSlides = [
     categoryLink: '/menu?category=cookies',
     price: 550,
     name: 'Classic Chocolate Chip Cookies',
-    img: '/bakery/chocolate-chip-cookie.jpg',
+    img: '/bakery/classic-chocolate-chip.jpg',
   },
   {
     video: '/bakery/bakery-video-2.mp4',
