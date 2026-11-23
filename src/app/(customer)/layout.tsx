@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CartDrawer from '@/components/CartDrawer';
 import SearchModal from '@/components/SearchModal';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
 export default function CustomerLayout({
   children,
@@ -16,6 +17,8 @@ export default function CustomerLayout({
       {/* Interactive Global Slide-out Drawer & Search */}
       <CartDrawer />
       <SearchModal />
+      {/* Discreet Floating WhatsApp Quick Inquiries */}
+      <FloatingWhatsApp />
     </>
   );
 }
