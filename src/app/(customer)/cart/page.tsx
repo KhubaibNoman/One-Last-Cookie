@@ -5,7 +5,7 @@ import { useCart } from '@/lib/store';
 import { formatPrice } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Trash2, Plus, Minus, ArrowRight, Store, Truck, Clock, Gift, ShieldCheck, Sparkles, Check, User, Mail, MapPin, MessageSquare, Banknote } from 'lucide-react';
+import { Trash2, Plus, Minus, ArrowRight, Store, Truck, Clock, Gift, ShieldCheck, Sparkles, Check, User, Mail, MapPin, MessageSquare, Banknote, Phone, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { toast } from '@/components/ui/toast';
@@ -30,6 +30,7 @@ export default function CartPage() {
   // Guest customer contact state
   const [customerName, setCustomerName] = useState('');
   const [customerContact, setCustomerContact] = useState('');
+  const [phoneError, setPhoneError] = useState<string | null>(null);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [paymentMethod, setPaymentMethod] = useState<'whatsapp' | 'cod'>('whatsapp');
 
@@ -47,10 +48,21 @@ export default function CartPage() {
       toast('Please enter your name for the bakery order', 'error');
       return;
     }
+
+    // Pakistani mobile number validation: (^(\+92|0)3[0-9]{9}$)
+    const cleanPhone = customerContact.replace(/[\s-]/g, '');
+    const pakistaniPhoneRegex = /^(\+92|0)3[0-9]{9}$/;
+
     if (!customerContact.trim()) {
-      toast('Please enter your contact phone number or email', 'error');
+      setPhoneError('Please enter your Pakistani mobile number');
       return;
     }
+
+    if (!pakistaniPhoneRegex.test(cleanPhone)) {
+      setPhoneError('Please enter a valid Pakistani mobile number (e.g. 0300 1234567 or +92 300 1234567)');
+      return;
+    }
+
     if (fulfillmentType === 'delivery' && !deliveryAddress.trim()) {
       toast('Please enter your delivery address', 'error');
       return;
@@ -262,23 +274,39 @@ export default function CartPage() {
                     required
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    placeholder="e.g. Chloe Laurent"
+                    placeholder="e.g. Sara Khan"
                     className="w-full border border-[#C9A96E]/30 bg-[#FAF7F2] px-3.5 py-2.5 text-sm focus:outline-none focus:border-[#C9A96E] rounded-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-[#8B7355] font-semibold mb-1 flex items-center gap-1">
-                    <Mail className="w-3 h-3 text-[#C9A96E]" /> Phone or Email *
+                  <label className="block text-xs uppercase tracking-wider text-[#8B7355] font-semibold mb-1 flex items-center justify-between">
+                    <span className="flex items-center gap-1">
+                      <Phone className="w-3 h-3 text-[#C9A96E]" /> Mobile / WhatsApp Number *
+                    </span>
+                    <span className="text-[10px] text-[#A68A56] font-mono tracking-wider">PK (03xx)</span>
                   </label>
                   <input
-                    type="text"
+                    type="tel"
                     required
                     value={customerContact}
-                    onChange={(e) => setCustomerContact(e.target.value)}
-                    placeholder="e.g. +33 6 12 34 56 78"
-                    className="w-full border border-[#C9A96E]/30 bg-[#FAF7F2] px-3.5 py-2.5 text-sm focus:outline-none focus:border-[#C9A96E] rounded-sm"
+                    onChange={(e) => {
+                      setCustomerContact(e.target.value);
+                      if (phoneError) setPhoneError(null);
+                    }}
+                    placeholder="e.g. 0300 1234567 or +92 300 1234567"
+                    className={`w-full border px-3.5 py-2.5 text-sm focus:outline-none rounded-sm transition-colors ${
+                      phoneError
+                        ? 'border-rose-500 bg-rose-50/40 focus:border-rose-600 text-rose-950'
+                        : 'border-[#C9A96E]/30 bg-[#FAF7F2] focus:border-[#C9A96E]'
+                    }`}
                   />
+                  {phoneError && (
+                    <p className="text-xs text-rose-600 mt-1.5 flex items-center gap-1 font-medium">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>{phoneError}</span>
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
