@@ -62,16 +62,6 @@ const GALLERY_ITEMS: GalleryItem[] = [
     tagline: 'A burst of Mediterranean orange in every bite',
   },
   {
-    id: 'g-5',
-    src: '/bakery/bakery-3.jpg',
-    title: 'Chef Tasting Combo',
-    category: 'Pastries',
-    categorySlug: 'pastries',
-    price: 3200,
-    slug: 'signature-selection-box',
-    tagline: 'Lemon Zest Cake paired with Red Velvet Cookies',
-  },
-  {
     id: 'g-8',
     src: '/bakery/bakery-8.jpg',
     title: 'Golden Platter Cookies',

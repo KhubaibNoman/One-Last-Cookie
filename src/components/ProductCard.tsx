@@ -29,7 +29,6 @@ const BADGES: Record<string, string> = {
   'lemon-zest-coconut-cake': 'Daily Special',
   'red-velvet-cookies': 'Best Seller',
   'orange-zest-bites': 'Artisan Pick',
-  'signature-selection-box': 'Gift Atelier',
   'golden-batch-cookies': 'Family Platter',
 };
 
@@ -39,7 +38,6 @@ const FLAVOR_PILLS: Record<string, string[]> = {
   'lemon-zest-coconut-cake': ['Organic Lemon Zest', 'Toasted Coconut', 'Citrus Glaze'],
   'red-velvet-cookies': ['Crimson Cocoa', 'Swiss White Chocolate', 'Powdered Snow'],
   'orange-zest-bites': ['Mediterranean Orange', 'Shortbread Crumb', 'Dark Drizzle'],
-  'signature-selection-box': ['Curated Tasting', 'Gift Packaging Included'],
   'golden-batch-cookies': ['Golden Baked Tray', 'Warm Vanilla Bean'],
 };
 

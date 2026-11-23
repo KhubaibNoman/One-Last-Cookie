@@ -28,7 +28,7 @@ const BOX_TIERS = [
     tag: 'Most Loved Selection',
     desc: 'Six warm bakes spanning molten Belgian chocolate, vibrant red velvet, and Sicilian citrus shortbread bites.',
     badge: 'Chef Favorite',
-    img: '/bakery/bakery-3.jpg',
+    img: '/bakery/signature-box.jpg',
     includes: ['6 Mixed Specialty Bakes', 'Silk Champagne Ribbon', 'Complimentary Gift Card', 'Free Insulated Packaging'],
   },
   {
