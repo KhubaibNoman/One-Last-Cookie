@@ -18,9 +18,9 @@ export interface BakeryProduct {
 export const INITIAL_PRODUCTS: BakeryProduct[] = [
   {
     id: 'prod-1',
-    name: 'Artisan Chocolate Chip Cookies',
+    name: 'Chocolate Chip Cookies',
     slug: 'chocolate-chip-cookies',
-    description: 'Soft, chewy golden cookies loaded with premium dark Belgian chocolate morsels. Freshly baked with pure European butter.',
+    description: 'Freshly baked, soft, chewy, and irresistible. Made with homemade goodness, pure creamery butter, and rich Belgian chocolate chunks.',
     price: '550',
     basePrice: '650',
     salePrice: '550',
@@ -29,8 +29,8 @@ export const INITIAL_PRODUCTS: BakeryProduct[] = [
     imageUrl: '/bakery/chocolate-chip-cookie.jpg',
     inStock: true,
     featured: true,
-    ingredients: ['Rich cocoa powder', 'Dark chocolate', 'Powdered sugar', 'Brown Sugar', 'Organic Flour'],
-    tasteNotes: 'Caramelized edges, molten chocolate interior, subtle Maldon sea salt finish.',
+    ingredients: ['Premium Belgian Chocolate', 'Creamery Butter', 'Golden Brown Sugar', 'Farm Eggs', 'Maldon Salt'],
+    tasteNotes: 'Soft, chewy, and loaded with molten chocolate. Small bites, big happiness.',
   },
   {
     id: 'prod-2',

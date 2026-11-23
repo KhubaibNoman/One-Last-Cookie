@@ -14,7 +14,7 @@ const heroSlides = [
     description: 'Crisp golden edges with molten Belgian 70% dark chocolate centers, baked fresh at dawn with European churned butter.',
     categoryLink: '/menu?category=cookies',
     price: 550,
-    name: 'Artisan Chocolate Chip Cookies',
+    name: 'Chocolate Chip Cookies',
     img: '/bakery/chocolate-chip-cookie.jpg',
   },
   {

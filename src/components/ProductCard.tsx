@@ -34,7 +34,7 @@ const BADGES: Record<string, string> = {
 
 // Clean flavor accents to replace long clashing paragraphs
 const FLAVOR_PILLS: Record<string, string[]> = {
-  'chocolate-chip-cookies': ['Rich cocoa powder', 'Dark chocolate', 'Powdered sugar'],
+  'chocolate-chip-cookies': ['Soft & Chewy', 'Belgian Chocolate', 'Homemade'],
   'lemon-zest-coconut-cake': ['Organic Lemon Zest', 'Toasted Coconut', 'Citrus Glaze'],
   'red-velvet-cookies': ['Crimson Cocoa', 'Swiss White Chocolate', 'Powdered Snow'],
   'orange-zest-bites': ['Mediterranean Orange', 'Shortbread Crumb', 'Dark Drizzle'],
