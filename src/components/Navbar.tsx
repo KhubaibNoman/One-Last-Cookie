@@ -55,11 +55,11 @@ export default function Navbar() {
             }`}
         >
           {/* Brand Logo - Haute Pâtisserie Editorial */}
-          <Link href="/" className="group flex items-center gap-2">
-            <span className="font-display text-xl sm:text-2xl tracking-[0.22em] text-[#1C1008] uppercase font-light">
+          <Link href="/" className="group flex items-center gap-2 whitespace-nowrap shrink-0">
+            <span className="font-display text-xl sm:text-2xl tracking-[0.22em] text-[#1C1008] uppercase font-light whitespace-nowrap">
               One Last Cookie
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C9A96E]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C9A96E] shrink-0" />
           </Link>
 
           {/* Center Navigation Links */}
@@ -77,19 +77,7 @@ export default function Navbar() {
           </div>
 
           {/* Right Action Controls */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Instagram Link */}
-            <a
-              href="https://www.instagram.com/one.last.cookie"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 text-[#7D6B58] hover:text-[#C9A96E] hover:bg-[#C9A96E]/10 rounded-full transition-all duration-300"
-              title="Follow @one.last.cookie on Instagram"
-              aria-label="Instagram"
-            >
-              <InstagramIcon className="w-4 h-4 stroke-[1.5]" />
-            </a>
-
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {/* Search Trigger */}
             <button
               onClick={openSearch}
