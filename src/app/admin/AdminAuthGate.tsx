@@ -77,7 +77,7 @@ export default function AdminAuthGate() {
           )}
 
           {/* Secure Login Form */}
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleLogin} className="space-y-4" autoComplete="off">
             <div>
               <label className="block text-[10px] uppercase tracking-wider text-[#8B7355] mb-1.5">
                 Staff Email
@@ -87,8 +87,9 @@ export default function AdminAuthGate() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full bg-[#1C1008] border border-[#C9A96E]/30 rounded px-3.5 py-2.5 text-xs text-[#F9F5EE] focus:outline-none focus:border-[#C9A96E] transition-colors"
-                placeholder="staff@onelastcookie.com"
+                autoComplete="off"
+                className="w-full bg-[#1C1008] border border-[#C9A96E]/30 rounded px-3.5 py-2.5 text-xs text-[#F9F5EE] focus:outline-none focus:border-[#C9A96E] transition-colors placeholder:text-[#8B7355]/40"
+                placeholder="Enter staff email"
               />
             </div>
 
@@ -101,8 +102,9 @@ export default function AdminAuthGate() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full bg-[#1C1008] border border-[#C9A96E]/30 rounded px-3.5 py-2.5 text-xs text-[#F9F5EE] focus:outline-none focus:border-[#C9A96E] transition-colors"
-                placeholder="••••••••"
+                autoComplete="new-password"
+                className="w-full bg-[#1C1008] border border-[#C9A96E]/30 rounded px-3.5 py-2.5 text-xs text-[#F9F5EE] focus:outline-none focus:border-[#C9A96E] transition-colors placeholder:text-[#8B7355]/40"
+                placeholder="Enter password"
               />
             </div>
 

@@ -36,23 +36,6 @@ export default function LoginPage() {
     }
   };
 
-  const handleQuickAdminLogin = async () => {
-    setLoading(true);
-    setError('');
-    const res = await signIn('credentials', {
-      email: 'admin@onelastcookie.com',
-      password: 'admin123',
-      redirect: false,
-    });
-    setLoading(false);
-    if (!res?.error) {
-      router.push('/admin');
-      router.refresh();
-    } else {
-      setError('Failed to sign in as admin');
-    }
-  };
-
   return (
     <div className="min-h-screen flex">
       {/* Left decorative panel */}
@@ -94,30 +77,7 @@ export default function LoginPage() {
             </div>
           )}
 
-          {/* ⚡ 1-Click Admin Access */}
-          <div className="mb-8 p-4 bg-[#C9A96E]/10 border border-[#C9A96E]/40 rounded-lg">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] tracking-widest uppercase font-semibold text-[#1C1008]">
-                Bakery Staff & Admin
-              </span>
-              <span className="text-[10px] bg-[#C9A96E]/20 text-[#1C1008] px-2 py-0.5 rounded font-mono">
-                Master Access
-              </span>
-            </div>
-            <button
-              type="button"
-              onClick={handleQuickAdminLogin}
-              disabled={loading}
-              className="w-full bg-[#1C1008] text-[#F9F5EE] hover:bg-[#C9A96E] hover:text-[#1C1008] py-2.5 px-4 text-xs tracking-wider uppercase font-semibold transition-all flex items-center justify-center gap-2 rounded shadow-sm disabled:opacity-50"
-            >
-              {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <span>⚡ 1-Click Admin Access</span>}
-            </button>
-            <p className="text-[10px] text-[#8B7355] text-center mt-2">
-              Or login with: <code className="bg-white/80 px-1 py-0.5 rounded text-[#1C1008]">admin@onelastcookie.com</code> / <code className="bg-white/80 px-1 py-0.5 rounded text-[#1C1008]">admin123</code>
-            </p>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5" autoComplete="off">
             <div>
               <label className="block text-xs tracking-widest uppercase text-[#8B7355] mb-2">
                 Email
@@ -127,8 +87,9 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoComplete="off"
                 className="w-full border border-[#C9A96E]/30 bg-transparent px-4 py-3 text-sm focus:outline-none focus:border-[#C9A96E] transition-colors"
-                placeholder="you@example.com"
+                placeholder="Enter your email"
               />
             </div>
 
@@ -142,8 +103,9 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  autoComplete="new-password"
                   className="w-full border border-[#C9A96E]/30 bg-transparent px-4 py-3 text-sm focus:outline-none focus:border-[#C9A96E] transition-colors pr-10"
-                  placeholder="••••••••"
+                  placeholder="Enter your password"
                 />
                 <button
                   type="button"
