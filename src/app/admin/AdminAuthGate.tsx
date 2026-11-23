@@ -4,60 +4,35 @@ import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Lock, Sparkles, ArrowRight, ShieldCheck, Loader2 } from 'lucide-react';
+import { Lock, ShieldCheck, Loader2 } from 'lucide-react';
 
 export default function AdminAuthGate() {
   const router = useRouter();
-  const [email, setEmail] = useState('admin@onelastcookie.com');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleLogin = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
     setLoading(true);
     setError('');
 
     try {
       const res = await signIn('credentials', {
-        email,
+        email: email.trim(),
         password,
         redirect: false,
       });
 
       if (res?.error) {
-        setError('Invalid admin credentials. Please try again.');
+        setError('Invalid staff credentials. Access restricted to authorized personnel.');
         setLoading(false);
       } else {
         router.refresh();
       }
     } catch {
       setError('Connection error. Please try again.');
-      setLoading(false);
-    }
-  };
-
-  const handleOneClick = async () => {
-    setEmail('admin@onelastcookie.com');
-    setPassword('admin123');
-    setLoading(true);
-    setError('');
-
-    try {
-      const res = await signIn('credentials', {
-        email: 'admin@onelastcookie.com',
-        password: 'admin123',
-        redirect: false,
-      });
-
-      if (!res?.error) {
-        router.refresh();
-      } else {
-        setError('Could not sign in with demo admin credentials.');
-        setLoading(false);
-      }
-    } catch {
-      setError('Connection error.');
       setLoading(false);
     }
   };
@@ -81,7 +56,7 @@ export default function AdminAuthGate() {
           </div>
           <p className="text-[10px] tracking-[0.35em] uppercase text-[#C9A96E] font-medium flex items-center justify-center gap-2 mb-2">
             <Lock className="w-3 h-3 text-[#C9A96E]" />
-            Staff & Kitchen Management
+            Staff Only
             <Lock className="w-3 h-3 text-[#C9A96E]" />
           </p>
           <h1 className="font-display text-4xl text-[#F9F5EE] font-light">
@@ -101,35 +76,7 @@ export default function AdminAuthGate() {
             </div>
           )}
 
-          {/* ⚡ 1-Click Fast Access Button */}
-          <div className="mb-6 pb-6 border-b border-[#C9A96E]/20 text-center">
-            <span className="text-[10px] uppercase tracking-widest text-[#C9A96E] block mb-2 font-semibold">
-              Instant Staff Access
-            </span>
-            <button
-              onClick={handleOneClick}
-              disabled={loading}
-              className="w-full bg-[#C9A96E] hover:bg-[#FAF8F5] text-[#1C1008] font-semibold text-xs uppercase tracking-widest py-3.5 px-6 rounded-md transition-all duration-300 shadow-lg hover:shadow-[#C9A96E]/20 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin text-[#1C1008]" />
-                  <span>Entering Dashboard…</span>
-                </>
-              ) : (
-                <>
-                  <Sparkles className="w-4 h-4 text-[#1C1008]" />
-                  <span>⚡ 1-Click Enter Admin Panel</span>
-                  <ArrowRight className="w-4 h-4 text-[#1C1008]" />
-                </>
-              )}
-            </button>
-            <p className="text-[10px] text-[#8B7355] mt-2">
-              Pre-configured demo administrator with full kitchen & product controls.
-            </p>
-          </div>
-
-          {/* Manual Login Form */}
+          {/* Secure Login Form */}
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-[10px] uppercase tracking-wider text-[#8B7355] mb-1.5">
@@ -141,7 +88,7 @@ export default function AdminAuthGate() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full bg-[#1C1008] border border-[#C9A96E]/30 rounded px-3.5 py-2.5 text-xs text-[#F9F5EE] focus:outline-none focus:border-[#C9A96E] transition-colors"
-                placeholder="admin@onelastcookie.com"
+                placeholder="staff@onelastcookie.com"
               />
             </div>
 
@@ -162,16 +109,23 @@ export default function AdminAuthGate() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#1C1008] hover:bg-[#3D2718] text-[#FAF8F5] border border-[#C9A96E]/40 py-2.5 text-xs uppercase tracking-wider font-medium transition-colors rounded disabled:opacity-50 mt-2"
+              className="w-full bg-[#C9A96E] hover:bg-[#FAF8F5] text-[#1C1008] font-semibold py-3 text-xs uppercase tracking-wider transition-all duration-300 rounded shadow-md disabled:opacity-50 mt-4 flex items-center justify-center gap-2 cursor-pointer"
             >
-              Sign In with Credentials
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-[#1C1008]" />
+                  <span>Verifying Credentials…</span>
+                </>
+              ) : (
+                <span>Sign In to Staff Dashboard</span>
+              )}
             </button>
           </form>
 
           <div className="mt-6 pt-4 border-t border-[#C9A96E]/15 flex items-center justify-between text-[11px] text-[#8B7355]">
             <span className="flex items-center gap-1">
               <ShieldCheck className="w-3.5 h-3.5 text-[#C9A96E]" />
-              Encrypted Session
+              Restricted Area
             </span>
             <a href="/" className="hover:text-[#F9F5EE] transition-colors">
               ← Return to Storefront

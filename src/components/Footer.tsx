@@ -28,7 +28,6 @@ export default function Footer() {
                 { href: '/menu?category=cookies', label: 'Cookies' },
                 { href: '/menu?category=cakes', label: 'Celebration Cakes' },
                 { href: '/orders', label: 'My Orders' },
-                { href: '/admin', label: '⚡ Staff / Admin Portal' },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
@@ -68,7 +67,6 @@ export default function Footer() {
           <div className="flex gap-6 items-center">
             <Link href="/privacy" className="text-xs text-[#8B7355] hover:text-[#F9F5EE] transition-colors">Privacy</Link>
             <Link href="/terms" className="text-xs text-[#8B7355] hover:text-[#F9F5EE] transition-colors">Terms</Link>
-            <Link href="/admin" className="text-xs text-[#8B7355]/60 hover:text-[#C9A96E] transition-colors">Staff Portal</Link>
           </div>
         </div>
       </div>

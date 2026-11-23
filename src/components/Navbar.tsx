@@ -78,8 +78,8 @@ export default function Navbar() {
               <Search className="w-4 h-4 stroke-[1.5]" />
             </button>
 
-            {/* Staff / Admin Access */}
-            {session && isAdmin ? (
+            {/* Staff / Admin Access (Only visible when authenticated as admin) */}
+            {session && isAdmin && (
               <div className="hidden sm:flex items-center gap-1.5 pl-1 border-l border-[#C9A96E]/30">
                 <Link
                   href="/admin"
@@ -96,15 +96,6 @@ export default function Navbar() {
                   <LogOut className="w-3.5 h-3.5" />
                 </button>
               </div>
-            ) : (
-              <Link
-                href="/admin"
-                className="hidden lg:flex items-center gap-1 text-[10px] tracking-widest uppercase text-[#8B7355] hover:text-[#1C1008] px-2.5 py-1 rounded-full hover:bg-[#C9A96E]/10 border border-[#C9A96E]/20 transition-all font-medium"
-                title="Bakery Staff Admin Portal"
-              >
-                <Settings className="w-3 h-3 text-[#C9A96E]" />
-                Staff
-              </Link>
             )}
 
             {/* Cart Capsule Pill */}

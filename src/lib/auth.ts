@@ -22,15 +22,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         const { email, password } = parsed.data;
 
-        // Default Master Admin demo account for One Last Cookie
+        // Master Admin account configured via environment variables or secure default
+        const configuredAdminEmail = (process.env.ADMIN_EMAIL || 'admin@onelastcookie.com').toLowerCase();
+        const configuredAdminPassword = process.env.ADMIN_PASSWORD || 'OneLastCookieAdmin2026!';
+
         if (
-          (email.toLowerCase() === 'admin@onelastcookie.com' || email.toLowerCase() === 'admin@lumiere.com' || email.toLowerCase() === 'admin@admin.com') &&
-          password === 'admin123'
+          email.toLowerCase() === configuredAdminEmail &&
+          password === configuredAdminPassword
         ) {
           return {
             id: 'admin-master',
             name: 'Head Baker Admin',
-            email: 'admin@onelastcookie.com',
+            email: configuredAdminEmail,
             role: 'admin',
           };
         }
