@@ -43,15 +43,6 @@ export function formatWhatsAppMessage(data: WhatsAppOrderDetails): string {
     lines.push(`- *Delivery Address:* ${data.deliveryAddress}`);
   }
 
-  if (data.includeGiftNote && data.giftNote) {
-    lines.push('');
-    lines.push('*GIFT CARD MESSAGE*');
-    if (data.recipientName) {
-      lines.push(`- *Recipient:* ${data.recipientName}`);
-    }
-    lines.push(`- *Message:* "${data.giftNote}"`);
-  }
-
   lines.push('');
   lines.push('*ORDER ITEMS*');
   data.items.forEach((item) => {
