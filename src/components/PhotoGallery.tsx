@@ -24,7 +24,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: 'g-1',
     src: '/bakery/chocolate-chip-cookie.jpg',
-    title: 'Chocolate Chip Cookies',
+    title: 'Classic Chocolate Chip Cookies',
     category: 'Cookies',
     categorySlug: 'cookies',
     price: 550,

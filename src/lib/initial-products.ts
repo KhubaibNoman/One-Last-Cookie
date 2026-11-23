@@ -18,7 +18,7 @@ export interface BakeryProduct {
 export const INITIAL_PRODUCTS: BakeryProduct[] = [
   {
     id: 'prod-1',
-    name: 'Chocolate Chip Cookies',
+    name: 'Classic Chocolate Chip Cookies',
     slug: 'chocolate-chip-cookies',
     description: 'Freshly baked, soft, chewy, and irresistible. Made with homemade goodness, pure creamery butter, and rich Belgian chocolate chunks.',
     price: '550',
