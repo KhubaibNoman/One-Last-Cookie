@@ -29,7 +29,7 @@ const BADGES: Record<string, string> = {
   'lemon-zest-coconut-cake': 'Daily Special',
   'red-velvet-cookies': 'Best Seller',
   'orange-zest-bites': 'Artisan Pick',
-  'golden-batch-cookies': 'Family Platter',
+  'double-chocolate-cookies': 'Soft & Fudgy',
 };
 
 // Clean flavor accents to replace long clashing paragraphs
@@ -38,7 +38,7 @@ const FLAVOR_PILLS: Record<string, string[]> = {
   'lemon-zest-coconut-cake': ['Organic Lemon Zest', 'Toasted Coconut', 'Citrus Glaze'],
   'red-velvet-cookies': ['Crimson Cocoa', 'Swiss White Chocolate', 'Powdered Snow'],
   'orange-zest-bites': ['Mediterranean Orange', 'Shortbread Crumb', 'Dark Drizzle'],
-  'golden-batch-cookies': ['Golden Baked Tray', 'Warm Vanilla Bean'],
+  'double-chocolate-cookies': ['Soft & Fudgy', 'Dark Cocoa', 'Belgian Chocolate'],
 };
 
 export default function ProductCard({ product }: { product: Product }) {

@@ -63,13 +63,13 @@ const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 'g-8',
-    src: '/bakery/bakery-8.jpg',
-    title: 'Golden Platter Cookies',
+    src: '/bakery/double-chocolate-cookies.jpg',
+    title: 'Double Chocolate Cookies',
     category: 'Cookies',
     categorySlug: 'cookies',
-    price: 1850,
-    slug: 'golden-batch-cookies',
-    tagline: 'Warm ceramic tray of classic chocolate chip bliss',
+    price: 650,
+    slug: 'double-chocolate-cookies',
+    tagline: 'Soft, fudgy & irresistible with deep dark chocolate',
   },
 ];
 
