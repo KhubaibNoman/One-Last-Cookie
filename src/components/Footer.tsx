@@ -23,9 +23,9 @@ export default function Footer() {
             <h4 className="text-xs tracking-widest uppercase text-[#C9A96E] mb-4">Navigate</h4>
             <ul className="space-y-2">
               {[
+                { href: '/about', label: 'Our Story (About)' },
                 { href: '/menu', label: 'Our Menu' },
-                { href: '/menu?category=pastries', label: 'Pastries' },
-                { href: '/menu?category=breads', label: 'Breads' },
+                { href: '/menu?category=cookies', label: 'Cookies' },
                 { href: '/menu?category=cakes', label: 'Celebration Cakes' },
                 { href: '/orders', label: 'My Orders' },
                 { href: '/admin', label: '⚡ Staff / Admin Portal' },

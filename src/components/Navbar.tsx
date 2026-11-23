@@ -27,10 +27,10 @@ export default function Navbar() {
 
   const navLinks = [
     { href: '/', label: 'Home' },
+    { href: '/about', label: 'Our Story' },
     { href: '/menu', label: 'All Bakes' },
     { href: '/menu?category=cookies', label: 'Cookies' },
     { href: '/menu?category=cakes', label: 'Cakes' },
-    { href: '/menu?category=pastries', label: 'Pastries' },
   ];
 
   return (

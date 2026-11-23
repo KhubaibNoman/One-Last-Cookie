@@ -2,8 +2,6 @@ import HeroSection from '@/components/HeroSection';
 import FeaturedProducts from '@/components/FeaturedProducts';
 import VideoShowcase from '@/components/VideoShowcase';
 import PhotoGallery from '@/components/PhotoGallery';
-import CraftStorySection from '@/components/CraftStorySection';
-import HomeKitchenPromise from '@/components/HomeKitchenPromise';
 import NewsletterSection from '@/components/NewsletterSection';
 import { db } from '@/lib/db';
 import { products } from '@/lib/schema';
@@ -75,12 +73,6 @@ export default async function HomePage() {
           <FeaturedProducts products={featured as any} />
         </div>
       </section>
-
-      {/* The Master's Methodology: 4 Pillars of Craft Story */}
-      <CraftStorySection />
-
-      {/* The Home Kitchen Promise: Small-Batch Homemade Philosophy */}
-      <HomeKitchenPromise />
 
       {/* Parallax Video Showcase */}
       <VideoShowcase />
