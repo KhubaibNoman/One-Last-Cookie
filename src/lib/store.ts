@@ -43,7 +43,7 @@ export const useCart = create<CartStore>()(
       items: [],
       isDrawerOpen: false,
       isSearchOpen: false,
-      fulfillmentType: 'pickup',
+      fulfillmentType: 'delivery',
       giftNote: '',
       recipientName: '',
 

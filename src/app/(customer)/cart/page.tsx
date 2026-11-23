@@ -5,7 +5,7 @@ import { useCart } from '@/lib/store';
 import { formatPrice } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Trash2, Plus, Minus, ArrowRight, Store, Truck, Clock, Gift, ShieldCheck, Sparkles, Check, User, Mail, MapPin, MessageSquare, Banknote, Phone, AlertCircle } from 'lucide-react';
+import { Trash2, Plus, Minus, ArrowRight, Truck, ShieldCheck, Sparkles, Check, User, MapPin, MessageSquare, Banknote, Phone, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { toast } from '@/components/ui/toast';
@@ -18,12 +18,6 @@ export default function CartPage() {
     updateQuantity,
     total,
     clearCart,
-    fulfillmentType,
-    setFulfillmentType,
-    giftNote,
-    setGiftNote,
-    recipientName,
-    setRecipientName,
   } = useCart();
   const router = useRouter();
 
@@ -33,13 +27,11 @@ export default function CartPage() {
   const [customerContact, setCustomerContact] = useState('');
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [deliveryAddress, setDeliveryAddress] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState<'whatsapp' | 'cod'>('whatsapp');
 
   const [loading, setLoading] = useState(false);
-  const [includeGiftNote, setIncludeGiftNote] = useState(Boolean(giftNote));
 
   const itemsTotal = total();
-  const deliveryFee = fulfillmentType === 'delivery' ? (itemsTotal >= 3000 ? 0 : 250) : 0;
+  const deliveryFee = itemsTotal >= 3000 ? 0 : 250;
   const orderGrandTotal = itemsTotal + deliveryFee;
 
   const handleCheckout = async (e: React.FormEvent) => {
@@ -76,7 +68,7 @@ export default function CartPage() {
 
     if (hasError) return;
 
-    if (fulfillmentType === 'delivery' && !deliveryAddress.trim()) {
+    if (!deliveryAddress.trim()) {
       toast('Please enter your delivery address', 'error');
       return;
     }
@@ -84,18 +76,13 @@ export default function CartPage() {
     setLoading(true);
 
     try {
-      const paymentLabel =
-        paymentMethod === 'whatsapp'
-          ? 'WhatsApp Direct (Bank Transfer / Easypaisa / JazzCash / COD)'
-          : 'Cash on Delivery / In-Store Pickup';
+      const paymentLabel = 'WhatsApp Direct (Bank Transfer / Easypaisa / JazzCash / COD)';
 
       const orderNotes = [
         `Customer: ${customerName}`,
         `Contact: ${customerContact}`,
         `Payment Method: ${paymentLabel}`,
-        fulfillmentType === 'delivery' ? `Address: ${deliveryAddress}` : 'Fulfillment: Storefront Pickup',
-        includeGiftNote && recipientName ? `Gift Recipient: ${recipientName}` : '',
-        includeGiftNote && giftNote ? `Gift Message: "${giftNote}"` : '',
+        `Address: ${deliveryAddress}`,
       ]
         .filter(Boolean)
         .join(' | ');
@@ -121,11 +108,8 @@ export default function CartPage() {
           orderId: order.id,
           customerName,
           customerContact,
-          fulfillmentType,
+          fulfillmentType: 'delivery',
           deliveryAddress,
-          includeGiftNote,
-          recipientName,
-          giftNote,
           paymentMethod: paymentLabel,
           items: items.map((i) => ({ name: i.name, quantity: i.quantity, price: i.price })),
           subtotal: itemsTotal,
@@ -135,16 +119,12 @@ export default function CartPage() {
 
         clearCart();
 
-        if (paymentMethod === 'whatsapp') {
-          toast('Order recorded! Launching WhatsApp...', 'success');
-          // Open WhatsApp chat in a new tab
-          window.open(whatsappUrl, '_blank');
-        } else {
-          toast('Order placed successfully!', 'success');
-        }
+        toast('Order recorded! Launching WhatsApp...', 'success');
+        // Open WhatsApp chat in a new tab
+        window.open(whatsappUrl, '_blank');
 
         router.push(
-          `/orders?success=true&orderId=${order.id || 'new'}&name=${encodeURIComponent(customerName)}&whatsapp=${paymentMethod === 'whatsapp'}&waUrl=${encodeURIComponent(whatsappUrl)}`
+          `/orders?success=true&orderId=${order.id || 'new'}&name=${encodeURIComponent(customerName)}&whatsapp=true&waUrl=${encodeURIComponent(whatsappUrl)}`
         );
       } else {
         const data = await res.json();
@@ -337,114 +317,32 @@ export default function CartPage() {
               </div>
             </div>
 
-            {/* Bakery Fulfillment Option */}
+            {/* Courier Delivery Details */}
             <div className="bg-white border border-[#C9A96E]/20 p-6 rounded-md shadow-sm">
-              <h2 className="font-display text-2xl text-[#1C1008] mb-4">Fulfillment Method</h2>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                <button
-                  type="button"
-                  onClick={() => setFulfillmentType('pickup')}
-                  className={`p-4 border rounded-md text-left transition-all ${
-                    fulfillmentType === 'pickup'
-                      ? 'border-[#C9A96E] bg-[#FAF7F2] shadow-sm'
-                      : 'border-[#C9A96E]/20 hover:border-[#C9A96E]/50'
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <Store className={`w-5 h-5 ${fulfillmentType === 'pickup' ? 'text-[#C9A96E]' : 'text-[#8B7355]'}`} />
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-green-700 bg-green-50 px-2 py-0.5 rounded">
-                      Free
-                    </span>
-                  </div>
-                  <h4 className="font-display text-lg text-[#1C1008] mb-1">Storefront Pickup</h4>
-                  <p className="text-xs text-[#8B7355]">Bakery Counter Pickup</p>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setFulfillmentType('delivery')}
-                  className={`p-4 border rounded-md text-left transition-all ${
-                    fulfillmentType === 'delivery'
-                      ? 'border-[#C9A96E] bg-[#FAF7F2] shadow-sm'
-                      : 'border-[#C9A96E]/20 hover:border-[#C9A96E]/50'
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <Truck className={`w-5 h-5 ${fulfillmentType === 'delivery' ? 'text-[#C9A96E]' : 'text-[#8B7355]'}`} />
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#C9A96E]">
-                      {itemsTotal >= 3000 ? 'Complimentary' : 'Rs. 250'}
-                    </span>
-                  </div>
-                  <h4 className="font-display text-lg text-[#1C1008] mb-1">Courier Delivery</h4>
-                  <p className="text-xs text-[#8B7355]">Direct to your doorstep</p>
-                </button>
-              </div>
-
-              {/* Delivery Address Field if courier delivery */}
-              {fulfillmentType === 'delivery' && (
-                <div className="p-4 bg-[#FAF7F2] border border-[#C9A96E]/30 rounded-sm">
-                  <label className="block text-xs uppercase tracking-wider text-[#8B7355] font-semibold mb-1 flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-[#C9A96E]" /> Delivery Address *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={deliveryAddress}
-                    onChange={(e) => setDeliveryAddress(e.target.value)}
-                    placeholder="House / Apartment, Street, Area, City"
-                    className="w-full border border-[#C9A96E]/30 bg-white px-3.5 py-2.5 text-sm focus:outline-none focus:border-[#C9A96E] rounded-sm"
-                  />
-                </div>
-              )}
-            </div>
-
-            {/* Personalized Gift Message */}
-            <div className="bg-white border border-[#C9A96E]/20 p-6 rounded-md shadow-sm">
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <Gift className="w-4 h-4 text-[#C9A96E]" />
-                  <h3 className="font-display text-xl text-[#1C1008]">Personalized Gift Note</h3>
+                  <Truck className="w-5 h-5 text-[#C9A96E]" />
+                  <h2 className="font-display text-2xl text-[#1C1008]">Courier Delivery</h2>
                 </div>
-                <label className="flex items-center gap-2 text-xs text-[#8B7355] cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={includeGiftNote}
-                    onChange={(e) => setIncludeGiftNote(e.target.checked)}
-                    className="accent-[#C9A96E]"
-                  />
-                  <span>Include gift card</span>
-                </label>
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-[#C9A96E]">
+                  {itemsTotal >= 3000 ? 'Complimentary' : 'Rs. 250'}
+                </span>
               </div>
+              <p className="text-xs text-[#8B7355] mb-4">Direct delivery to your doorstep. Freshly baked and securely boxed.</p>
 
-              {includeGiftNote && (
-                <div className="space-y-3 pt-3 border-t border-[#C9A96E]/15">
-                  <div>
-                    <label className="block text-[11px] uppercase tracking-wider text-[#8B7355] mb-1">
-                      Recipient Name
-                    </label>
-                    <input
-                      type="text"
-                      value={recipientName}
-                      onChange={(e) => setRecipientName(e.target.value)}
-                      placeholder="e.g. Eleanor Vance"
-                      className="w-full border border-[#C9A96E]/30 bg-[#FAF7F2] px-3.5 py-2 text-sm focus:outline-none focus:border-[#C9A96E] rounded-sm"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] uppercase tracking-wider text-[#8B7355] mb-1">
-                      Calligraphy Card Message
-                    </label>
-                    <textarea
-                      rows={3}
-                      value={giftNote}
-                      onChange={(e) => setGiftNote(e.target.value)}
-                      placeholder="Write your custom heartfelt note to be handwritten in gold calligraphy..."
-                      className="w-full border border-[#C9A96E]/30 bg-[#FAF7F2] p-3 text-sm focus:outline-none focus:border-[#C9A96E] resize-none rounded-sm font-serif italic"
-                    />
-                  </div>
-                </div>
-              )}
+              <div className="p-4 bg-[#FAF7F2] border border-[#C9A96E]/30 rounded-sm">
+                <label className="block text-xs uppercase tracking-wider text-[#8B7355] font-semibold mb-1 flex items-center gap-1">
+                  <MapPin className="w-3.5 h-3.5 text-[#C9A96E]" /> Delivery Address *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={deliveryAddress}
+                  onChange={(e) => setDeliveryAddress(e.target.value)}
+                  placeholder="House / Apartment, Street, Area, City"
+                  className="w-full border border-[#C9A96E]/30 bg-white px-3.5 py-2.5 text-sm focus:outline-none focus:border-[#C9A96E] rounded-sm"
+                />
+              </div>
             </div>
 
             {/* Payment & Checkout Method */}
@@ -460,73 +358,26 @@ export default function CartPage() {
                 </span>
               </div>
 
-              <div className="space-y-3">
-                {/* Option 1: WhatsApp Checkout */}
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod('whatsapp')}
-                  className={`w-full p-4 border rounded-md text-left transition-all flex items-start gap-3.5 cursor-pointer ${
-                    paymentMethod === 'whatsapp'
-                      ? 'border-emerald-600 bg-emerald-50/40 shadow-sm ring-1 ring-emerald-600/30'
-                      : 'border-[#C9A96E]/20 hover:border-[#C9A96E]/50 bg-white'
-                  }`}
-                >
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                    paymentMethod === 'whatsapp' ? 'bg-[#25D366] text-white shadow-sm' : 'bg-[#FAF7F2] text-[#8B7355]'
-                  }`}>
-                    <MessageSquare className="w-4 h-4" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-1">
-                      <h4 className="font-display text-lg text-[#1C1008] font-medium flex items-center gap-2">
-                        <span>WhatsApp Order & Instant Chat</span>
-                        <span className="text-[9px] font-mono uppercase bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded font-bold">
-                          Recommended
-                        </span>
-                      </h4>
-                      <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                        paymentMethod === 'whatsapp' ? 'border-emerald-600 bg-emerald-600' : 'border-[#C9A96E]/40'
-                      }`}>
-                        {paymentMethod === 'whatsapp' && <Check className="w-3 h-3 text-white" />}
-                      </div>
+              <div className="p-4 border border-emerald-600 bg-emerald-50/40 rounded-md text-left flex items-start gap-3.5 shadow-sm ring-1 ring-emerald-600/30">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 bg-[#25D366] text-white shadow-sm">
+                  <MessageSquare className="w-4 h-4" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-1">
+                    <h4 className="font-display text-lg text-[#1C1008] font-medium flex items-center gap-2">
+                      <span>WhatsApp Order & Instant Chat</span>
+                      <span className="text-[9px] font-mono uppercase bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded font-bold">
+                        Direct & Easy
+                      </span>
+                    </h4>
+                    <div className="w-4 h-4 rounded-full border border-emerald-600 bg-emerald-600 flex items-center justify-center">
+                      <Check className="w-3 h-3 text-white" />
                     </div>
-                    <p className="text-xs text-[#7D6B58] leading-relaxed">
-                      Generates a pre-filled WhatsApp message with your exact items, quantities, and totals, opening straight into our bakery chat for instant confirmation. Pay via Bank Transfer, Easypaisa, JazzCash, or COD.
-                    </p>
                   </div>
-                </button>
-
-                {/* Option 2: Standard Cash on Delivery */}
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod('cod')}
-                  className={`w-full p-4 border rounded-md text-left transition-all flex items-start gap-3.5 cursor-pointer ${
-                    paymentMethod === 'cod'
-                      ? 'border-[#C9A96E] bg-[#FAF7F2] shadow-sm ring-1 ring-[#C9A96E]/30'
-                      : 'border-[#C9A96E]/20 hover:border-[#C9A96E]/50 bg-white'
-                  }`}
-                >
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                    paymentMethod === 'cod' ? 'bg-[#1C1008] text-[#C9A96E]' : 'bg-[#FAF7F2] text-[#8B7355]'
-                  }`}>
-                    <Banknote className="w-4 h-4" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-1">
-                      <h4 className="font-display text-lg text-[#1C1008] font-medium">
-                        Cash on Delivery / In-Store Pickup
-                      </h4>
-                      <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                        paymentMethod === 'cod' ? 'border-[#C9A96E] bg-[#C9A96E]' : 'border-[#C9A96E]/40'
-                      }`}>
-                        {paymentMethod === 'cod' && <Check className="w-3 h-3 text-[#1C1008]" />}
-                      </div>
-                    </div>
-                    <p className="text-xs text-[#7D6B58] leading-relaxed">
-                      Pay with cash directly when your bakery box is handed to you by our courier or at our counter.
-                    </p>
-                  </div>
-                </button>
+                  <p className="text-xs text-[#7D6B58] leading-relaxed">
+                    Generates a pre-filled WhatsApp message with your exact items, quantities, and totals, opening straight into our bakery chat for instant confirmation. Pay via Bank Transfer, Easypaisa, JazzCash, or Cash on Delivery.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -545,7 +396,7 @@ export default function CartPage() {
                   <span className="font-display text-base text-[#F9F5EE]">{formatPrice(itemsTotal)}</span>
                 </div>
                 <div className="flex justify-between text-[#E8D5B0]/80">
-                  <span>Fulfillment ({fulfillmentType === 'pickup' ? 'Pickup' : 'Courier'})</span>
+                  <span>Fulfillment (Courier)</span>
                   <span className="font-display text-base text-[#F9F5EE]">
                     {deliveryFee === 0 ? 'Complimentary' : formatPrice(deliveryFee)}
                   </span>
@@ -566,37 +417,23 @@ export default function CartPage() {
 
               {/* Selected Fulfillment Preview */}
               <div className="py-4 text-xs text-[#8B7355] space-y-1">
-                <p>📍 {fulfillmentType === 'pickup' ? 'Fulfillment: Storefront Bakery Pickup' : 'Fulfillment: Courier Delivery to your door'}</p>
-                {includeGiftNote && <p>🎁 Custom Greeting Card included</p>}
+                <p>📍 Fulfillment: Courier Delivery to your door</p>
               </div>
 
               {/* Instant Submit Button */}
-              {paymentMethod === 'whatsapp' ? (
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-4 text-xs tracking-widest uppercase font-semibold transition-all rounded-sm shadow-xl flex items-center justify-center gap-2 mt-4 disabled:opacity-50 cursor-pointer group"
-                >
-                  <MessageSquare className="w-4 h-4 fill-white group-hover:scale-110 transition-transform" />
-                  <span>{loading ? 'Preparing WhatsApp...' : 'Checkout via WhatsApp'}</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full bg-[#C9A96E] text-[#1C1008] hover:bg-[#E8D5B0] py-4 text-xs tracking-widest uppercase font-semibold transition-all rounded-sm shadow-lg flex items-center justify-center gap-2 mt-4 disabled:opacity-50 cursor-pointer"
-                >
-                  <span>{loading ? 'Confirming Order...' : 'Confirm & Place Order'}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              )}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-4 text-xs tracking-widest uppercase font-semibold transition-all rounded-sm shadow-xl flex items-center justify-center gap-2 mt-4 disabled:opacity-50 cursor-pointer group"
+              >
+                <MessageSquare className="w-4 h-4 fill-white group-hover:scale-110 transition-transform" />
+                <span>{loading ? 'Preparing WhatsApp...' : 'Checkout via WhatsApp'}</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
 
-              {paymentMethod === 'whatsapp' && (
-                <p className="text-[11px] text-[#A68A56] text-center mt-2 font-medium">
-                  ✨ Pre-fills items & totals into your WhatsApp chat automatically
-                </p>
-              )}
+              <p className="text-[11px] text-[#A68A56] text-center mt-2 font-medium">
+                ✨ Pre-fills items & totals into your WhatsApp chat automatically
+              </p>
 
               <div className="mt-6 flex items-center justify-center gap-4 text-[11px] text-[#8B7355] border-t border-[#C9A96E]/15 pt-4">
                 <span className="flex items-center gap-1">

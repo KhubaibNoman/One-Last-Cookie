@@ -27,10 +27,6 @@ export interface WhatsAppOrderDetails {
 
 export function formatWhatsAppMessage(data: WhatsAppOrderDetails): string {
   const ref = data.orderId ? `#${data.orderId.slice(0, 8).toUpperCase()}` : '#NEW-ORDER';
-  const fulfillment =
-    data.fulfillmentType === 'delivery'
-      ? 'Courier Delivery'
-      : 'Storefront Pickup';
 
   const lines = [
     '*NEW ORDER - ONE LAST COOKIE*',
@@ -40,10 +36,10 @@ export function formatWhatsAppMessage(data: WhatsAppOrderDetails): string {
     '*CUSTOMER DETAILS*',
     `- *Name:* ${data.customerName}`,
     `- *Contact:* ${data.customerContact}`,
-    `- *Fulfillment:* ${fulfillment}`,
+    '- *Fulfillment:* Courier Delivery',
   ];
 
-  if (data.fulfillmentType === 'delivery' && data.deliveryAddress) {
+  if (data.deliveryAddress) {
     lines.push(`- *Delivery Address:* ${data.deliveryAddress}`);
   }
 

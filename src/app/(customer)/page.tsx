@@ -4,7 +4,6 @@ import VideoShowcase from '@/components/VideoShowcase';
 import PhotoGallery from '@/components/PhotoGallery';
 import CraftStorySection from '@/components/CraftStorySection';
 import HomeKitchenPromise from '@/components/HomeKitchenPromise';
-import TestimonialsSection from '@/components/TestimonialsSection';
 import NewsletterSection from '@/components/NewsletterSection';
 import { db } from '@/lib/db';
 import { products } from '@/lib/schema';
@@ -88,26 +87,6 @@ export default async function HomePage() {
 
       {/* Photo Gallery with real pictures & Lightbox Modal */}
       <PhotoGallery />
-
-      {/* Patrons & Gourmet Reviews */}
-      <TestimonialsSection />
-
-      {/* Luxury Stats Bar */}
-      <section className="py-20 bg-[#FAF8F5] border-t border-[#E8DFC8]">
-        <div className="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {[
-            { number: '4 AM', label: 'Dawn Oven Start' },
-            { number: '100%', label: 'Natural Ingredients' },
-            { number: '84%', label: 'Normandy Butterfat' },
-            { number: '4.9★', label: 'Boutique Rating' },
-          ].map((stat) => (
-            <div key={stat.label}>
-              <p className="font-display text-4xl sm:text-5xl md:text-6xl text-[#C9A96E] mb-2 font-light">{stat.number}</p>
-              <p className="text-[11px] text-[#7D6B58] tracking-[0.2em] uppercase font-medium">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* Newsletter / Confection Club */}
       <NewsletterSection />
