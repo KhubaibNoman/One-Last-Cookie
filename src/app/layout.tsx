@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, Inter } from 'next/font/google';
 import './globals.css';
-import { SessionProvider } from 'next-auth/react';
-import { auth } from '@/lib/auth';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -35,18 +33,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable}`} data-scroll-behavior="smooth">
       <body className="bg-[#FAF8F5] text-[#1C1008] antialiased selection:bg-[#C9A96E]/30 selection:text-[#1C1008]">
-        <SessionProvider session={session} refetchOnWindowFocus={false} refetchInterval={0}>
-          {children}
-        </SessionProvider>
+        {children}
       </body>
     </html>
   );

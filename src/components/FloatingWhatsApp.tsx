@@ -5,7 +5,7 @@ import { useState } from 'react';
 export default function FloatingWhatsApp() {
   const [isHovered, setIsHovered] = useState(false);
   const whatsappUrl =
-    'https://wa.me/923052419096?text=Hi%20One%20Last%20Cookie!%20I%20have%20a%20question%20about%20your%20baked%20goods.';
+    'https://wa.me/923225697907?text=Hi%20One%20Last%20Cookie!%20I%20have%20a%20question%20about%20your%20baked%20goods.';
 
   return (
     <aside
@@ -30,7 +30,7 @@ export default function FloatingWhatsApp() {
         onMouseLeave={() => setIsHovered(false)}
         className="group relative flex items-center justify-center w-13 h-13 rounded-full bg-[#25D366] text-white shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:shadow-[0_6px_25px_rgba(37,211,102,0.55)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
         aria-label="Chat with One Last Cookie on WhatsApp"
-        title="Chat with us on WhatsApp (+92 305 2419096)"
+        title="Chat with us on WhatsApp (+92 322 5697907)"
       >
         {/* Gentle Pulse Glow */}
         <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-35 animate-ping -z-10" />

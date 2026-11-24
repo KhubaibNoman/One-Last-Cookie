@@ -1,7 +1,7 @@
 import { formatPrice } from './utils';
 
 export const DEFAULT_WHATSAPP_NUMBER =
-  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '923052419096';
+  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '923225697907';
 
 export interface WhatsAppOrderItem {
   name: string;

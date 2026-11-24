@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { useSession, signOut } from 'next-auth/react';
-import { ShoppingBag, Menu, X, LogOut, Settings, Search, Sparkles } from 'lucide-react';
+import { ShoppingBag, Menu, X, Search } from 'lucide-react';
 import { useCart } from '@/lib/store';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -18,15 +17,12 @@ function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
 }
 
 export default function Navbar() {
-  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const itemCount = useCart((s) => s.itemCount());
   const openDrawer = useCart((s) => s.openDrawer);
   const openSearch = useCart((s) => s.openSearch);
-
-  const isAdmin = (session?.user as any)?.role === 'admin';
 
   useEffect(() => {
     setMounted(true);
@@ -87,26 +83,6 @@ export default function Navbar() {
             >
               <Search className="w-4 h-4 stroke-[1.5]" />
             </button>
-
-            {/* Staff / Admin Access (Only visible when authenticated as admin) */}
-            {session && isAdmin && (
-              <div className="hidden sm:flex items-center gap-1.5 pl-1 border-l border-[#C9A96E]/30">
-                <Link
-                  href="/admin"
-                  className="text-[10px] tracking-widest uppercase text-[#C9A96E] hover:text-[#1C1008] px-2.5 py-1 rounded-full bg-[#C9A96E]/15 border border-[#C9A96E]/30 font-semibold transition-colors flex items-center gap-1"
-                >
-                  <Settings className="w-3 h-3" />
-                  Staff
-                </Link>
-                <button
-                  onClick={() => signOut({ callbackUrl: '/' })}
-                  className="text-xs text-[#8B7355] hover:text-red-500 p-1 transition-colors"
-                  title="Sign Out"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            )}
 
             {/* Cart Capsule Pill */}
             <button
@@ -185,7 +161,7 @@ export default function Navbar() {
             {/* Bottom info inside drawer */}
             <div className="pt-6 border-t border-[#C9A96E]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-[#8B7355]">
               <p>Fresh Small-Batch Home Bakery • Daily 8am – 8pm</p>
-              <div className="flex items-center gap-4">
+              <div>
                 <a
                   href="https://www.instagram.com/one.last.cookie"
                   target="_blank"
@@ -194,15 +170,6 @@ export default function Navbar() {
                 >
                   <InstagramIcon className="w-3.5 h-3.5" /> @one.last.cookie ↗
                 </a>
-                {session && isAdmin && (
-                  <Link
-                    href="/admin"
-                    onClick={() => setIsOpen(false)}
-                    className="text-[#C9A96E] uppercase tracking-widest font-semibold flex items-center gap-1.5 hover:text-[#1C1008] transition-colors"
-                  >
-                    <Settings className="w-3.5 h-3.5" /> Staff
-                  </Link>
-                )}
               </div>
             </div>
           </motion.div>
