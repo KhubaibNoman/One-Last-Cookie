@@ -113,6 +113,19 @@ export default function Navbar() {
             </button>
           </div>
         </nav>
+
+        {/* Mobile Horizontal Pages Bar (Home, Our Story, All Bakes, Cookies, Cakes) */}
+        <div className="md:hidden mt-2 flex items-center justify-center gap-1.5 overflow-x-auto no-scrollbar px-1 py-0.5">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-[10px] tracking-wider uppercase font-medium text-[#1C1008] bg-[#FAF8F5]/95 hover:bg-[#C9A96E]/20 px-2.5 py-1 rounded-full border border-[#C9A96E]/30 shadow-sm whitespace-nowrap active:scale-95 transition-all"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
       </header>
 
       {/* Mobile Drawer Overlay */}
