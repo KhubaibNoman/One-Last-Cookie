@@ -223,7 +223,7 @@ export default function PhotoGallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
             onClick={() => setActiveModal(null)}
           >
             <motion.div
@@ -231,25 +231,26 @@ export default function PhotoGallery() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#FAF8F5] border border-[#C9A96E]/40 rounded-lg max-w-3xl w-full overflow-hidden shadow-2xl relative grid grid-cols-1 md:grid-cols-2"
+              className="bg-[#FAF8F5] border border-[#C9A96E]/40 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl relative grid grid-cols-1 md:grid-cols-2"
             >
               {/* Close Button */}
               <button
                 onClick={() => setActiveModal(null)}
-                className="absolute top-4 right-4 z-20 text-[#1C1008] hover:text-[#C9A96E] p-2 bg-white/80 rounded-full border border-[#C9A96E]/30 transition-colors cursor-pointer"
+                className="absolute top-3 right-3 z-30 text-[#1C1008] hover:text-[#C9A96E] p-2 bg-[#FAF8F5]/90 hover:bg-[#C9A96E]/20 rounded-full border border-[#C9A96E]/40 shadow-md transition-colors cursor-pointer"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Poster Image */}
-              <div className="relative aspect-[2/3] w-full bg-[#F3EFE6]">
+              {/* Poster Image Container - 100% Uncropped */}
+              <div className="relative w-full h-[320px] sm:h-[420px] md:h-full md:min-h-[480px] bg-[#1C1008]/5 flex items-center justify-center p-3">
                 <Image
                   src={activeModal.src}
                   alt={activeModal.title}
                   fill
-                  className="object-contain"
+                  className="object-contain p-2"
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
                 />
               </div>
 

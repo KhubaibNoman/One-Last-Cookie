@@ -97,16 +97,16 @@ export default async function ProductDetailPage({
         {/* Product Detail Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Left: High-Res Image with Luxury Gold Frame (aspect 2/3 matches poster without cropping) */}
-          <div className="relative aspect-[2/3] w-full max-w-md mx-auto overflow-hidden bg-[#FAF8F5] border border-[#E8DFC8] rounded-md shadow-[0_16px_40px_rgba(28,16,8,0.08)]">
+          <div className="relative aspect-[2/3] w-full max-w-md mx-auto overflow-hidden bg-[#FAF8F5] border border-[#E8DFC8] rounded-md shadow-[0_16px_40px_rgba(28,16,8,0.08)] flex items-center justify-center p-2">
             <Image
               src={product.imageUrl}
               alt={product.name}
               fill
               priority
-              className="object-cover transition-transform duration-700 hover:scale-105"
+              className="object-contain p-2 transition-transform duration-700 hover:scale-105"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
-            <div className="absolute top-4 left-4 bg-[#1C1008]/85 text-[#C9A96E] text-[10px] tracking-[0.3em] uppercase px-3 py-1.5 border border-[#C9A96E]/40 backdrop-blur-sm">
+            <div className="absolute top-4 left-4 bg-[#1C1008]/85 text-[#C9A96E] text-[10px] tracking-[0.3em] uppercase px-3 py-1.5 border border-[#C9A96E]/40 backdrop-blur-sm z-10">
               Artisan Batch
             </div>
           </div>
