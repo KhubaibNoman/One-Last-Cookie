@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#160E08] pt-20 pb-16">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#160E08] -mt-20 pt-20 pb-16">
       {/* 4K Motion Video Background: Signature Chocolate Cookies */}
       <video
         src="/bakery/bakery-video-1.mp4"

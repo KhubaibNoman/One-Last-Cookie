@@ -2,27 +2,17 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { ShoppingBag, Menu, X, Search } from 'lucide-react';
+import { ShoppingBag, Search } from 'lucide-react';
 import { useCart } from '@/lib/store';
-import { motion, AnimatePresence } from 'framer-motion';
-
-function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-    </svg>
-  );
-}
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const itemCount = useCart((s) => s.itemCount());
+  const items = useCart((s) => s.items);
   const openDrawer = useCart((s) => s.openDrawer);
   const openSearch = useCart((s) => s.openSearch);
+
+  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   useEffect(() => {
     setMounted(true);
@@ -42,153 +32,66 @@ export default function Navbar() {
   ];
 
   return (
-    <>
-      <header className="fixed top-0 left-0 right-0 z-40 px-2 sm:px-6 md:px-8 pt-2 sm:pt-4 transition-all duration-300">
-        <nav
-          className={`max-w-6xl mx-auto rounded-full px-3.5 sm:px-7 py-2 sm:py-3 flex items-center justify-between transition-all duration-300 ${scrolled
-            ? 'bg-[#FAF8F5]/95 sm:bg-[#FAF8F5]/90 sm:backdrop-blur-xl border border-[#C9A96E]/30 shadow-[0_12px_40px_rgba(28,16,8,0.08)]'
-            : 'bg-[#FAF8F5]/90 sm:bg-[#FAF8F5]/75 sm:backdrop-blur-md border border-[#C9A96E]/20 shadow-[0_4px_24px_rgba(28,16,8,0.03)]'
-            }`}
-        >
-          {/* Brand Logo - Haute Pâtisserie Editorial */}
-          <Link href="/" className="group flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0">
-            <span className="font-display text-[15px] sm:text-2xl tracking-[0.14em] sm:tracking-[0.22em] text-[#1C1008] uppercase font-light whitespace-nowrap">
-              One Last Cookie
-            </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C9A96E] shrink-0" />
-          </Link>
+    <header className="fixed top-0 left-0 right-0 z-40 px-2 sm:px-6 md:px-8 pt-2 sm:pt-4 transition-all duration-300 pointer-events-none">
+      <nav
+        className={`w-full max-w-6xl mx-auto rounded-full px-3 sm:px-6 md:px-8 py-2 sm:py-2.5 flex items-center justify-between gap-1.5 sm:gap-4 pointer-events-auto transition-all duration-300 ${scrolled
+          ? 'bg-[#FAF8F5]/98 sm:bg-[#FAF8F5]/92 sm:backdrop-blur-xl border border-[#C9A96E]/35 shadow-[0_12px_40px_rgba(28,16,8,0.08)]'
+          : 'bg-[#FAF8F5]/95 sm:bg-[#FAF8F5]/85 sm:backdrop-blur-md border border-[#C9A96E]/20 shadow-[0_4px_24px_rgba(28,16,8,0.03)]'
+          }`}
+      >
+        {/* Brand Logo - Haute Pâtisserie Editorial */}
+        <Link href="/" className="group flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0">
+          <span className="font-display text-[12px] min-[390px]:text-[13px] sm:text-xl lg:text-2xl tracking-[0.12em] sm:tracking-[0.22em] text-[#1C1008] uppercase font-light">
+            One Last Cookie
+          </span>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#C9A96E] shrink-0" />
+        </Link>
 
-          {/* Center Navigation Links */}
-          <div className="hidden md:flex items-center gap-7 lg:gap-9">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="relative text-[11px] tracking-[0.22em] uppercase text-[#7D6B58] hover:text-[#1C1008] font-medium transition-colors py-1 group"
-              >
-                {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-px bg-[#C9A96E] transition-all duration-300 group-hover:w-full" />
-              </Link>
-            ))}
-          </div>
-
-          {/* Right Action Controls */}
-          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-            {/* Search Trigger */}
-            <button
-              onClick={openSearch}
-              className="p-1.5 sm:p-2 text-[#7D6B58] hover:text-[#1C1008] hover:bg-[#C9A96E]/10 rounded-full transition-all duration-300"
-              title="Search menu (Ctrl + K)"
-              aria-label="Search delicacies"
-            >
-              <Search className="w-4 h-4 stroke-[1.5]" />
-            </button>
-
-            {/* Cart Capsule Pill */}
-            <button
-              onClick={openDrawer}
-              className="group flex items-center gap-1.5 sm:gap-2 bg-[#1C1008] text-[#FAF8F5] hover:bg-[#C9A96E] hover:text-[#1C1008] px-2.5 sm:pl-3.5 sm:pr-4 py-1.5 sm:py-2 rounded-full transition-all duration-300 shadow-sm"
-              aria-label="Open basket"
-            >
-              <ShoppingBag className="w-3.5 h-3.5 stroke-[1.8]" />
-              <span className="hidden sm:inline text-[11px] tracking-widest uppercase font-semibold">
-                Basket
-              </span>
-              <span
-                suppressHydrationWarning
-                className="ml-0.5 w-4 h-4 rounded-full bg-[#C9A96E] group-hover:bg-[#1C1008] text-[#1C1008] group-hover:text-[#FAF8F5] text-[10px] flex items-center justify-center font-bold transition-colors"
-              >
-                {mounted ? itemCount : 0}
-              </span>
-            </button>
-
-            {/* Mobile Hamburger Menu Button (Prominent & Always Visible) */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden flex items-center justify-center p-2 text-[#1C1008] bg-[#1C1008]/5 hover:bg-[#C9A96E]/20 rounded-full transition-colors"
-              aria-label="Open Navigation Menu"
-              title="Open Menu"
-            >
-              {isOpen ? <X className="w-4 h-4 stroke-[2]" /> : <Menu className="w-4 h-4 stroke-[2]" />}
-            </button>
-          </div>
-        </nav>
-
-        {/* Mobile Horizontal Pages Bar (Home, Our Story, All Bakes, Cookies, Cakes) */}
-        <div className="md:hidden mt-2 flex items-center justify-center gap-1.5 overflow-x-auto no-scrollbar px-1 py-0.5">
+        {/* Center Navigation Links - Housed inside the single capsule pill */}
+        <div className="flex items-center gap-2 min-[380px]:gap-3 sm:gap-5 md:gap-7 lg:gap-8 overflow-x-auto no-scrollbar min-w-0 flex-1 justify-center px-1">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-[10px] tracking-wider uppercase font-medium text-[#1C1008] bg-[#FAF8F5]/95 hover:bg-[#C9A96E]/20 px-2.5 py-1 rounded-full border border-[#C9A96E]/30 shadow-sm whitespace-nowrap active:scale-95 transition-all"
+              className="relative text-[9px] min-[380px]:text-[10px] sm:text-[11px] tracking-[0.14em] sm:tracking-[0.22em] uppercase text-[#7D6B58] hover:text-[#1C1008] font-medium whitespace-nowrap transition-colors py-1 group shrink-0"
             >
               {link.label}
+              <span className="absolute bottom-0 left-0 w-0 h-px bg-[#C9A96E] transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
         </div>
-      </header>
 
-      {/* Mobile Drawer Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="fixed inset-0 z-50 bg-[#FAF8F5]/98 backdrop-blur-2xl flex flex-col justify-between p-8 sm:p-12"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
+        {/* Right Action Controls: Search & Basket */}
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          {/* Search Trigger */}
+          <button
+            onClick={openSearch}
+            className="p-1.5 sm:p-2 text-[#7D6B58] hover:text-[#1C1008] hover:bg-[#C9A96E]/10 rounded-full transition-colors cursor-pointer"
+            title="Search menu (Ctrl + K)"
+            aria-label="Search delicacies"
           >
-            {/* Top Bar inside Drawer */}
-            <div className="flex items-center justify-between pb-6 border-b border-[#C9A96E]/20">
-              <span className="font-display text-2xl tracking-[0.22em] text-[#1C1008] uppercase font-light">
-                One Last Cookie
-              </span>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="p-2 text-[#1C1008] hover:bg-[#C9A96E]/10 rounded-full"
-                aria-label="Close menu"
-              >
-                <X className="w-6 h-6 stroke-[1.5]" />
-              </button>
-            </div>
+            <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[1.6]" />
+          </button>
 
-            {/* Links */}
-            <div className="space-y-4 py-8">
-              {navLinks.map((link, idx) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.06 }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="block font-display text-3xl sm:text-4xl text-[#1C1008] hover:text-[#C9A96E] transition-colors py-2 font-light tracking-wide"
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Bottom info inside drawer */}
-            <div className="pt-6 border-t border-[#C9A96E]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-[#8B7355]">
-              <p>Fresh Small-Batch Home Bakery • Daily 8am – 8pm</p>
-              <div>
-                <a
-                  href="https://www.instagram.com/one.last.cookie"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#C9A96E] hover:text-[#1C1008] uppercase tracking-widest font-semibold flex items-center gap-1.5 transition-colors"
-                >
-                  <InstagramIcon className="w-3.5 h-3.5" /> @one.last.cookie ↗
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+          {/* Cart Capsule Pill */}
+          <button
+            onClick={openDrawer}
+            className="group flex items-center gap-1 sm:gap-1.5 bg-[#1C1008] text-[#FAF8F5] hover:bg-[#C9A96E] hover:text-[#1C1008] px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full transition-all duration-300 shadow-sm shrink-0 cursor-pointer"
+            aria-label="Open basket"
+          >
+            <ShoppingBag className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[1.8]" />
+            <span className="hidden md:inline text-[11px] tracking-widest uppercase font-semibold">
+              Basket
+            </span>
+            <span
+              suppressHydrationWarning
+              className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-[#C9A96E] group-hover:bg-[#1C1008] text-[#1C1008] group-hover:text-[#FAF8F5] text-[9px] sm:text-[10px] flex items-center justify-center font-bold transition-colors"
+            >
+              {mounted ? itemCount : 0}
+            </span>
+          </button>
+        </div>
+      </nav>
+    </header>
   );
 }
