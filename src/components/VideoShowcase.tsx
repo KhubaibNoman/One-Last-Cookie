@@ -1,27 +1,22 @@
 'use client';
 
-import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 
 export default function VideoShowcase() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
-
   return (
-    <section ref={ref} className="relative h-[70vh] overflow-hidden flex items-center">
-      {/* Parallax video */}
-      <motion.div className="absolute inset-0 w-full h-[115%] -top-[7.5%]" style={{ y }}>
+    <section className="relative h-[70vh] overflow-hidden flex items-center">
+      {/* Video Background (Optimized for smooth 60fps mobile scrolling) */}
+      <div className="absolute inset-0 w-full h-full">
         <video
           src="/bakery/bakery-video-2.mp4"
           autoPlay
           muted
           loop
           playsInline
+          preload="metadata"
           className="w-full h-full object-cover"
         />
-      </motion.div>
+      </div>
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-[#1C1008]/65" />

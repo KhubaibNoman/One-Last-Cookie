@@ -45,9 +45,9 @@ export default function Navbar() {
     <>
       <header className="fixed top-0 left-0 right-0 z-40 px-4 sm:px-6 md:px-8 pt-3 sm:pt-4 transition-all duration-500">
         <nav
-          className={`max-w-6xl mx-auto rounded-full px-5 sm:px-7 py-3 flex items-center justify-between transition-all duration-500 ${scrolled
-            ? 'bg-[#FAF8F5]/90 backdrop-blur-xl border border-[#C9A96E]/30 shadow-[0_12px_40px_rgba(28,16,8,0.08)]'
-            : 'bg-[#FAF8F5]/75 backdrop-blur-md border border-[#C9A96E]/20 shadow-[0_4px_24px_rgba(28,16,8,0.03)]'
+          className={`max-w-6xl mx-auto rounded-full px-5 sm:px-7 py-3 flex items-center justify-between transition-all duration-300 ${scrolled
+            ? 'bg-[#FAF8F5]/95 sm:bg-[#FAF8F5]/90 sm:backdrop-blur-xl border border-[#C9A96E]/30 shadow-[0_12px_40px_rgba(28,16,8,0.08)]'
+            : 'bg-[#FAF8F5]/90 sm:bg-[#FAF8F5]/75 sm:backdrop-blur-md border border-[#C9A96E]/20 shadow-[0_4px_24px_rgba(28,16,8,0.03)]'
             }`}
         >
           {/* Brand Logo - Haute Pâtisserie Editorial */}

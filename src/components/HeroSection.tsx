@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronDown, Sparkles, Star } from 'lucide-react';
@@ -43,8 +43,6 @@ const heroSlides = [
 
 export default function HeroSection() {
   const [current, setCurrent] = useState(0);
-  const [loaded, setLoaded] = useState(false);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   // Auto-advance slides every 8 seconds
   useEffect(() => {
@@ -54,42 +52,19 @@ export default function HeroSection() {
     return () => clearInterval(timer);
   }, []);
 
-  // Manage video play/pause on slide change
-  useEffect(() => {
-    videoRefs.current.forEach((v, i) => {
-      if (!v) return;
-      if (i === current) {
-        v.currentTime = 0;
-        v.play().catch(() => {});
-      } else {
-        v.pause();
-      }
-    });
-  }, [current]);
-
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#160E08] pt-20 pb-16">
-      {/* 4K 60fps Video Backgrounds */}
-      {heroSlides.map((slide, i) => (
-        <video
-          key={i}
-          ref={(el) => { videoRefs.current[i] = el; }}
-          src={slide.video}
-          muted
-          loop
-          playsInline
-          preload={i === 0 ? 'auto' : 'none'}
-          onCanPlay={() => {
-            if (i === 0) {
-              setLoaded(true);
-              videoRefs.current[0]?.play().catch(() => {});
-            }
-          }}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-            i === current ? 'opacity-55 scale-100' : 'opacity-0 scale-105'
-          } transition-all duration-1000 ease-out`}
-        />
-      ))}
+      {/* 4K Motion Video Background (Single Stream for Max Mobile Performance) */}
+      <video
+        key={heroSlides[current].video}
+        src={heroSlides[current].video}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        className="absolute inset-0 w-full h-full object-cover opacity-50 scale-100 transition-opacity duration-700 ease-out"
+      />
 
       {/* Cinematic Overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#160E08]/75 via-black/35 to-[#160E08]/95 pointer-events-none z-10" />
@@ -155,16 +130,14 @@ export default function HeroSection() {
             aria-label={`Slide ${i + 1}`}
           >
             <span
-              className={`text-[10px] tracking-widest font-mono transition-colors ${
-                i === current ? 'text-[#C9A96E] font-bold' : 'text-[#8B7355]/60 group-hover:text-[#FAF8F5]'
-              }`}
+              className={`text-[10px] tracking-widest font-mono transition-colors ${i === current ? 'text-[#C9A96E] font-bold' : 'text-[#8B7355]/60 group-hover:text-[#FAF8F5]'
+                }`}
             >
               0{i + 1}
             </span>
             <span
-              className={`h-0.5 transition-all duration-500 rounded-full ${
-                i === current ? 'w-8 bg-[#C9A96E]' : 'w-2 bg-[#C9A96E]/30 group-hover:bg-[#C9A96E]/60'
-              }`}
+              className={`h-0.5 transition-all duration-500 rounded-full ${i === current ? 'w-8 bg-[#C9A96E]' : 'w-2 bg-[#C9A96E]/30 group-hover:bg-[#C9A96E]/60'
+                }`}
             />
           </button>
         ))}

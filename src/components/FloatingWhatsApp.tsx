@@ -32,8 +32,8 @@ export default function FloatingWhatsApp() {
         aria-label="Chat with One Last Cookie on WhatsApp"
         title="Chat with us on WhatsApp (+92 322 5697907)"
       >
-        {/* Gentle Pulse Glow */}
-        <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-35 animate-ping -z-10" />
+        {/* Soft Ambient Glow */}
+        <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-30 blur-sm -z-10 group-hover:scale-110 transition-transform duration-300" />
 
         {/* Crisp WhatsApp SVG */}
         <svg
