@@ -31,22 +31,16 @@ export default function VideoShowcase() {
         >
           <p className="text-[#C9A96E] text-xs tracking-[0.4em] uppercase mb-5">The Process</p>
           <h2 className="font-display text-5xl md:text-7xl text-[#F9F5EE] font-light mb-6">
-            Baked at <em className="text-[#C9A96E]">Dawn</em>
+            Baked with <em className="text-[#C9A96E]">Passion</em>
           </h2>
           <p className="text-[#E8D5B0]/70 text-lg leading-relaxed max-w-xl mx-auto">
-            We start before sunrise. Every cookie, every cake, every bite — made fresh by hand, with nothing but the best ingredients on earth.
+            Every cookie, every cake, every bite — made fresh by hand, with nothing but the best ingredients on earth.
           </p>
-          <div className="mt-10 grid grid-cols-3 gap-6 max-w-md mx-auto">
-            {[
-              { n: '4am', l: 'We Start' },
-              { n: '100%', l: 'Homemade' },
-              { n: 'Daily', l: 'Fresh Baked' },
-            ].map((s) => (
-              <div key={s.l}>
-                <p className="font-display text-3xl text-[#C9A96E]">{s.n}</p>
-                <p className="text-xs text-[#8B7355] tracking-widest uppercase mt-1">{s.l}</p>
-              </div>
-            ))}
+          <div className="mt-8 flex justify-center">
+            <div className="text-center">
+              <p className="font-display text-3xl sm:text-4xl text-[#C9A96E]">100%</p>
+              <p className="text-xs text-[#8B7355] tracking-widest uppercase mt-1">Homemade</p>
+            </div>
           </div>
         </motion.div>
       </div>
