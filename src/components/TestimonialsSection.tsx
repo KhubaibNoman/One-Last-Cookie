@@ -15,7 +15,7 @@ const REVIEWS = [
     quote: 'I ordered the Connoisseur 6-pack as an anniversary gift. The calligraphy note, wax seal, and still-warm cookies made my partner tear up with joy.',
     author: 'Marc-Antoine Laurent',
     location: 'Saint-Germain-des-Prés',
-    date: '3 Days Ago • Boutique Courier',
+    date: '3 Days Ago • Fresh Batch',
     product: 'Atelier Connoisseur Box',
     rating: 5,
   },
@@ -44,7 +44,7 @@ export default function TestimonialsSection() {
             Words from Our <em className="text-[#C9A96E] italic font-serif">Patrons</em>
           </h2>
           <p className="text-[#7D6B58] text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
-            Over 1,200 morning bakes delivered across Paris. Here is what happens when craft meets obsessive standards.
+            Over 1,200 morning bakes handcrafted with love. Here is what happens when craft meets obsessive standards.
           </p>
         </div>
 

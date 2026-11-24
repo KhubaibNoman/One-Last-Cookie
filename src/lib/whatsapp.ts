@@ -13,15 +13,15 @@ export interface WhatsAppOrderDetails {
   orderId?: string;
   customerName: string;
   customerContact: string;
-  fulfillmentType: 'pickup' | 'delivery';
-  deliveryAddress?: string;
+  fulfillmentType?: 'pickup' | 'delivery';
+  notes?: string;
   includeGiftNote?: boolean;
   recipientName?: string;
   giftNote?: string;
   paymentMethod?: string;
   items: WhatsAppOrderItem[];
   subtotal: number;
-  deliveryFee: number;
+  deliveryFee?: number;
   grandTotal: number;
 }
 
@@ -36,11 +36,10 @@ export function formatWhatsAppMessage(data: WhatsAppOrderDetails): string {
     '*CUSTOMER DETAILS*',
     `- *Name:* ${data.customerName}`,
     `- *Contact:* ${data.customerContact}`,
-    '- *Fulfillment:* Courier Delivery',
   ];
 
-  if (data.deliveryAddress) {
-    lines.push(`- *Delivery Address:* ${data.deliveryAddress}`);
+  if (data.notes) {
+    lines.push(`- *Order Notes:* ${data.notes}`);
   }
 
   lines.push('');
@@ -52,8 +51,6 @@ export function formatWhatsAppMessage(data: WhatsAppOrderDetails): string {
 
   lines.push('');
   lines.push('----------------------------------------');
-  lines.push(`*Items Subtotal:* ${formatPrice(data.subtotal)}`);
-  lines.push(`*Delivery:* ${data.deliveryFee === 0 ? 'Free' : formatPrice(data.deliveryFee)}`);
   lines.push(`*GRAND TOTAL:* *${formatPrice(data.grandTotal)}*`);
   lines.push('----------------------------------------');
 
@@ -62,7 +59,7 @@ export function formatWhatsAppMessage(data: WhatsAppOrderDetails): string {
   }
 
   lines.push('');
-  lines.push('Hello! I have placed this order on your website. Please confirm availability and share payment details (Bank Transfer / Easypaisa / JazzCash / Cash on Delivery). Thank you!');
+  lines.push('Hello! I have placed this order on your website. Please confirm availability and share payment details (Bank Transfer / Easypaisa / JazzCash). Thank you!');
 
   return lines.join('\n');
 }

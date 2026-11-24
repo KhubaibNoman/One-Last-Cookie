@@ -128,16 +128,14 @@ export default function AdminOrdersPage() {
             <button
               key={f.value}
               onClick={() => setFilter(f.value)}
-              className={`text-xs tracking-wider uppercase px-4 py-2 rounded-full whitespace-nowrap transition-all font-medium flex items-center gap-2 border ${
-                active
-                  ? 'bg-[#1C1008] text-[#F9F5EE] border-[#1C1008] shadow-sm'
-                  : 'bg-white text-[#8B7355] border-[#C9A96E]/25 hover:border-[#C9A96E]'
-              }`}
+              className={`text-xs tracking-wider uppercase px-4 py-2 rounded-full whitespace-nowrap transition-all font-medium flex items-center gap-2 border ${active
+                ? 'bg-[#1C1008] text-[#F9F5EE] border-[#1C1008] shadow-sm'
+                : 'bg-white text-[#8B7355] border-[#C9A96E]/25 hover:border-[#C9A96E]'
+                }`}
             >
               <span>{f.label}</span>
-              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                active ? 'bg-[#C9A96E] text-[#1C1008]' : 'bg-[#FAF7F2] text-[#8B7355]'
-              }`}>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${active ? 'bg-[#C9A96E] text-[#1C1008]' : 'bg-[#FAF7F2] text-[#8B7355]'
+                }`}>
                 {count}
               </span>
             </button>
@@ -195,13 +193,9 @@ export default function AdminOrdersPage() {
                     {/* Notes & Dispatch Window */}
                     <td className="px-5 py-4 align-top max-w-sm">
                       <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                        <span className={`inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded border ${
-                          isCourier
-                            ? 'bg-blue-50 text-blue-900 border-blue-200'
-                            : 'bg-green-50 text-green-900 border-green-200'
-                        }`}>
-                          {isCourier ? <Truck className="w-3 h-3" /> : <Store className="w-3 h-3" />}
-                          {isCourier ? 'Courier Delivery' : 'Store Pickup'}
+                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded border bg-emerald-50 text-emerald-900 border-emerald-200">
+                          <Store className="w-3 h-3" />
+                          Direct Order
                         </span>
 
                         {hasGift && (
@@ -231,9 +225,8 @@ export default function AdminOrdersPage() {
                     {/* Status Select */}
                     <td className="px-5 py-4 align-top">
                       <div className="flex flex-col gap-1.5">
-                        <span className={`inline-flex items-center justify-center text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded border shadow-xs ${
-                          statusBadgeStyles[order.status] || 'bg-gray-100'
-                        }`}>
+                        <span className={`inline-flex items-center justify-center text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded border shadow-xs ${statusBadgeStyles[order.status] || 'bg-gray-100'
+                          }`}>
                           {order.status}
                         </span>
 

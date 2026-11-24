@@ -185,10 +185,6 @@ export default function CartDrawer() {
                     {formatPrice(currentTotal)}
                   </span>
                 </div>
-                <div className="flex items-center justify-between text-xs text-[#8B7355]">
-                  <span>Fulfillment</span>
-                  <span className="text-[#C9A96E] font-medium">Calculated at checkout</span>
-                </div>
 
                 <div className="pt-2 border-t border-[#C9A96E]/15 flex items-center justify-between">
                   <span className="font-display text-lg text-[#1C1008]">Estimated Total</span>

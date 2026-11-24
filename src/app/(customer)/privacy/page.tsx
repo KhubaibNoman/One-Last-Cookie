@@ -28,7 +28,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="font-display text-2xl text-[#1C1008] mb-3">2. Order Information</h2>
             <p>
-              When you place an order, we collect only the necessary details required to bake, package, and deliver your selections: your name, contact phone or email, fulfillment window, and delivery address (if courier service is chosen).
+              When you place an order, we collect only the necessary details required to bake, package, and fulfill your selections: your name, contact phone or email, and any custom order notes or preferences.
             </p>
           </section>
 

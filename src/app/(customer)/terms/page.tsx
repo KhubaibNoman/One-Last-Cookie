@@ -26,9 +26,9 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-2xl text-[#1C1008] mb-3">2. Pickup & Courier Fulfillment</h2>
+            <h2 className="font-display text-2xl text-[#1C1008] mb-3">2. Order Fulfillment & Freshness</h2>
             <p>
-              For Storefront Pickup, please arrive during your chosen time slot at 12 Rue de la Paix, Paris. For Boutique Courier Delivery, our dedicated couriers transport your orders in temperature-controlled luxury packaging.
+              All orders are handcrafted fresh upon request. Your selections are baked to order and sealed in protective luxury artisanal packaging to preserve warmth, crispness, and molten centers.
             </p>
           </section>
 

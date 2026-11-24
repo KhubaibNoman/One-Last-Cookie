@@ -281,7 +281,7 @@ export default function PhotoGallery() {
                       <span className="text-[#C9A96E]">✦</span> Sealed in protective artisanal bakery packaging
                     </p>
                     <p className="flex items-center gap-2">
-                      <span className="text-[#C9A96E]">✦</span> Freshly baked to order & delivered via express courier
+                      <span className="text-[#C9A96E]">✦</span> Freshly baked to order with premium artisan ingredients
                     </p>
                   </div>
                 </div>

@@ -5,7 +5,7 @@ import { useCart } from '@/lib/store';
 import { formatPrice } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Trash2, Plus, Minus, ArrowRight, Truck, ShieldCheck, Sparkles, Check, User, MapPin, MessageSquare, Banknote, Phone, AlertCircle } from 'lucide-react';
+import { Trash2, Plus, Minus, ArrowRight, ShieldCheck, Sparkles, Check, User, MessageSquare, Banknote, Phone, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { toast } from '@/components/ui/toast';
@@ -26,7 +26,7 @@ export default function CartPage() {
   const [nameError, setNameError] = useState<string | null>(null);
   const [customerContact, setCustomerContact] = useState('');
   const [phoneError, setPhoneError] = useState<string | null>(null);
-  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [orderNotesText, setOrderNotesText] = useState('');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -36,8 +36,7 @@ export default function CartPage() {
   const [loading, setLoading] = useState(false);
 
   const itemsTotal = total();
-  const deliveryFee = itemsTotal >= 3000 ? 0 : 250;
-  const orderGrandTotal = itemsTotal + deliveryFee;
+  const orderGrandTotal = itemsTotal;
 
   const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,21 +72,15 @@ export default function CartPage() {
 
     if (hasError) return;
 
-    if (!deliveryAddress.trim()) {
-      toast('Please enter your delivery address', 'error');
-      return;
-    }
-
     setLoading(true);
 
     try {
-      const paymentLabel = 'WhatsApp Direct (Bank Transfer / Easypaisa / JazzCash / COD)';
+      const paymentLabel = 'WhatsApp Direct (Bank Transfer / Easypaisa / JazzCash)';
 
       const orderNotes = [
         `Customer: ${customerName}`,
         `Contact: ${customerContact}`,
-        `Payment Method: ${paymentLabel}`,
-        `Address: ${deliveryAddress}`,
+        orderNotesText.trim() ? `Notes: ${orderNotesText.trim()}` : null,
       ]
         .filter(Boolean)
         .join(' | ');
@@ -113,12 +106,10 @@ export default function CartPage() {
           orderId: order.id,
           customerName,
           customerContact,
-          fulfillmentType: 'delivery',
-          deliveryAddress,
+          notes: orderNotesText.trim() || undefined,
           paymentMethod: paymentLabel,
           items: items.map((i) => ({ name: i.name, quantity: i.quantity, price: i.price })),
           subtotal: itemsTotal,
-          deliveryFee,
           grandTotal: orderGrandTotal,
         });
 
@@ -331,30 +322,21 @@ export default function CartPage() {
               </div>
             </div>
 
-            {/* Courier Delivery Details */}
+            {/* Order Notes (Optional) */}
             <div className="bg-white border border-[#C9A96E]/20 p-6 rounded-md shadow-sm">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <Truck className="w-5 h-5 text-[#C9A96E]" />
-                  <h2 className="font-display text-2xl text-[#1C1008]">Courier Delivery</h2>
-                </div>
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-[#C9A96E]">
-                  {itemsTotal >= 3000 ? 'Complimentary' : 'Rs. 250'}
-                </span>
+              <div className="flex items-center gap-2 mb-2">
+                <MessageSquare className="w-4 h-4 text-[#C9A96E]" />
+                <h2 className="font-display text-2xl text-[#1C1008]">Order Notes (Optional)</h2>
               </div>
-              <p className="text-xs text-[#8B7355] mb-4">Direct delivery to your doorstep. Freshly baked and securely boxed.</p>
+              <p className="text-xs text-[#8B7355] mb-4">Any special requests, warm cookie preferences, or gift messages.</p>
 
               <div className="p-4 bg-[#FAF7F2] border border-[#C9A96E]/30 rounded-sm">
-                <label className="block text-xs uppercase tracking-wider text-[#8B7355] font-semibold mb-1 flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-[#C9A96E]" /> Delivery Address *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={deliveryAddress}
-                  onChange={(e) => setDeliveryAddress(e.target.value)}
-                  placeholder="House / Apartment, Street, Area, City"
-                  className="w-full border border-[#C9A96E]/30 bg-white px-3.5 py-2.5 text-sm focus:outline-none focus:border-[#C9A96E] rounded-sm"
+                <textarea
+                  rows={2}
+                  value={orderNotesText}
+                  onChange={(e) => setOrderNotesText(e.target.value)}
+                  placeholder="e.g. Birthday note, warm cookies preference, etc."
+                  className="w-full border border-[#C9A96E]/30 bg-white px-3.5 py-2.5 text-sm focus:outline-none focus:border-[#C9A96E] rounded-sm resize-none"
                 />
               </div>
             </div>
@@ -389,7 +371,7 @@ export default function CartPage() {
                     </div>
                   </div>
                   <p className="text-xs text-[#7D6B58] leading-relaxed">
-                    Generates a pre-filled WhatsApp message with your exact items, quantities, and totals, opening straight into our bakery chat for instant confirmation. Pay via Bank Transfer, Easypaisa, JazzCash, or Cash on Delivery.
+                    Generates a pre-filled WhatsApp message with your exact items, quantities, and totals, opening straight into our bakery chat for instant confirmation. Pay via Bank Transfer, Easypaisa, or JazzCash.
                   </p>
                 </div>
               </div>
@@ -410,12 +392,6 @@ export default function CartPage() {
                   <span className="font-display text-base text-[#F9F5EE]">{formatPrice(itemsTotal)}</span>
                 </div>
                 <div className="flex justify-between text-[#E8D5B0]/80">
-                  <span>Fulfillment (Courier)</span>
-                  <span className="font-display text-base text-[#F9F5EE]">
-                    {deliveryFee === 0 ? 'Complimentary' : formatPrice(deliveryFee)}
-                  </span>
-                </div>
-                <div className="flex justify-between text-[#E8D5B0]/80">
                   <span>Signature Packaging</span>
                   <span className="text-[#C9A96E] font-medium">Complimentary</span>
                 </div>
@@ -427,11 +403,6 @@ export default function CartPage() {
                 <span className="font-display text-3xl text-[#C9A96E] font-semibold">
                   {formatPrice(orderGrandTotal)}
                 </span>
-              </div>
-
-              {/* Selected Fulfillment Preview */}
-              <div className="py-4 text-xs text-[#8B7355] space-y-1">
-                <p>📍 Fulfillment: Courier Delivery to your door</p>
               </div>
 
               {/* Instant Submit Button */}

@@ -77,7 +77,7 @@ export default function Navbar() {
         </div>
 
         {/* Navigation Links - Full Width & Never Cropped on Mobile, Centered on Desktop */}
-        <div className="flex items-center justify-between md:justify-center gap-2 sm:gap-6 md:gap-7 lg:gap-8 border-t border-[#C9A96E]/20 md:border-t-0 pt-1.5 md:pt-0 w-full md:w-auto">
+        <div className="flex items-center justify-between md:justify-center gap-2 sm:gap-6 md:gap-7 lg:gap-8 border-t border-[#C9A96E]/20 md:border-t-0 pt-1.5 md:pt-0 w-full md:w-auto overflow-x-auto no-scrollbar px-1">
           {navLinks.map((link) => (
             <Link
               key={link.href}

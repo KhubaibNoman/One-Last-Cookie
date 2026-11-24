@@ -40,7 +40,7 @@ const BOX_TIERS = [
     desc: 'A lavish dozen assortment including our complete range of cookies, lemon coconut cake slices, and seasonal specials.',
     badge: 'Best Value',
     img: '/bakery/bakery-8.jpg',
-    includes: ['12 Assorted Grand Bakes', 'Double Luxury Gift Packaging', 'Priority Morning Oven Dispatch', 'Complimentary Courier'],
+    includes: ['12 Assorted Grand Bakes', 'Double Luxury Gift Packaging', 'Priority Morning Oven Dispatch', 'Complimentary Luxury Packaging'],
   },
 ];
 
@@ -174,7 +174,7 @@ export default function CurateBoxSection() {
               {selectedBox.name} — <span className="text-[#9E6B1F] font-bold">{formatPrice(selectedBox.price)}</span>
             </h4>
             <p className="text-xs text-[#E8DFC8]/70 mt-1">
-              Includes complimentary gold gift packaging and your choice of scheduled oven delivery time slot.
+              Includes complimentary gold gift packaging, freshly baked to perfection upon order.
             </p>
           </div>
 
