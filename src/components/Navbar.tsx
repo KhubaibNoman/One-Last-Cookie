@@ -43,16 +43,16 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 px-4 sm:px-6 md:px-8 pt-3 sm:pt-4 transition-all duration-500">
+      <header className="fixed top-0 left-0 right-0 z-40 px-2 sm:px-6 md:px-8 pt-2 sm:pt-4 transition-all duration-300">
         <nav
-          className={`max-w-6xl mx-auto rounded-full px-5 sm:px-7 py-3 flex items-center justify-between transition-all duration-300 ${scrolled
+          className={`max-w-6xl mx-auto rounded-full px-3.5 sm:px-7 py-2 sm:py-3 flex items-center justify-between transition-all duration-300 ${scrolled
             ? 'bg-[#FAF8F5]/95 sm:bg-[#FAF8F5]/90 sm:backdrop-blur-xl border border-[#C9A96E]/30 shadow-[0_12px_40px_rgba(28,16,8,0.08)]'
             : 'bg-[#FAF8F5]/90 sm:bg-[#FAF8F5]/75 sm:backdrop-blur-md border border-[#C9A96E]/20 shadow-[0_4px_24px_rgba(28,16,8,0.03)]'
             }`}
         >
           {/* Brand Logo - Haute Pâtisserie Editorial */}
-          <Link href="/" className="group flex items-center gap-2 whitespace-nowrap shrink-0">
-            <span className="font-display text-xl sm:text-2xl tracking-[0.22em] text-[#1C1008] uppercase font-light whitespace-nowrap">
+          <Link href="/" className="group flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0">
+            <span className="font-display text-[15px] sm:text-2xl tracking-[0.14em] sm:tracking-[0.22em] text-[#1C1008] uppercase font-light whitespace-nowrap">
               One Last Cookie
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-[#C9A96E] shrink-0" />
@@ -73,11 +73,11 @@ export default function Navbar() {
           </div>
 
           {/* Right Action Controls */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             {/* Search Trigger */}
             <button
               onClick={openSearch}
-              className="p-2 text-[#7D6B58] hover:text-[#1C1008] hover:bg-[#C9A96E]/10 rounded-full transition-all duration-300"
+              className="p-1.5 sm:p-2 text-[#7D6B58] hover:text-[#1C1008] hover:bg-[#C9A96E]/10 rounded-full transition-all duration-300"
               title="Search menu (Ctrl + K)"
               aria-label="Search delicacies"
             >
@@ -87,11 +87,11 @@ export default function Navbar() {
             {/* Cart Capsule Pill */}
             <button
               onClick={openDrawer}
-              className="group flex items-center gap-2 bg-[#1C1008] text-[#FAF8F5] hover:bg-[#C9A96E] hover:text-[#1C1008] pl-3.5 pr-4 py-2 rounded-full transition-all duration-300 shadow-sm"
+              className="group flex items-center gap-1.5 sm:gap-2 bg-[#1C1008] text-[#FAF8F5] hover:bg-[#C9A96E] hover:text-[#1C1008] px-2.5 sm:pl-3.5 sm:pr-4 py-1.5 sm:py-2 rounded-full transition-all duration-300 shadow-sm"
               aria-label="Open basket"
             >
               <ShoppingBag className="w-3.5 h-3.5 stroke-[1.8]" />
-              <span className="text-[11px] tracking-widest uppercase font-semibold">
+              <span className="hidden sm:inline text-[11px] tracking-widest uppercase font-semibold">
                 Basket
               </span>
               <span
@@ -102,13 +102,14 @@ export default function Navbar() {
               </span>
             </button>
 
-            {/* Mobile Hamburger */}
+            {/* Mobile Hamburger Menu Button (Prominent & Always Visible) */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 text-[#1C1008] hover:bg-[#C9A96E]/10 rounded-full transition-colors"
-              aria-label="Toggle navigation"
+              className="md:hidden flex items-center justify-center p-2 text-[#1C1008] bg-[#1C1008]/5 hover:bg-[#C9A96E]/20 rounded-full transition-colors"
+              aria-label="Open Navigation Menu"
+              title="Open Menu"
             >
-              {isOpen ? <X className="w-5 h-5 stroke-[1.5]" /> : <Menu className="w-5 h-5 stroke-[1.5]" />}
+              {isOpen ? <X className="w-4 h-4 stroke-[2]" /> : <Menu className="w-4 h-4 stroke-[2]" />}
             </button>
           </div>
         </nav>

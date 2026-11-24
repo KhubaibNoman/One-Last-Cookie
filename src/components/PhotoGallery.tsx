@@ -149,76 +149,71 @@ export default function PhotoGallery() {
           })}
         </div>
 
-        {/* Poster Showcase Grid: Proper 2:3 aspect ratio ensures NO CUT OFF */}
-        <motion.div layout className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          <AnimatePresence>
-            {filteredItems.map((item) => (
-              <motion.div
-                key={item.id}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4 }}
-                className="group relative aspect-[2/3] w-full rounded-md overflow-hidden bg-[#FAF8F5] border border-[#E8DFC8] hover:border-[#C9A96E] shadow-[0_4px_20px_rgba(28,16,8,0.04)] hover:shadow-[0_16px_40px_rgba(201,169,110,0.22)] transition-all duration-500 cursor-pointer"
-                onClick={() => setActiveModal(item)}
-              >
-                {/* Full Uncut Poster Image */}
-                <Image
-                  src={item.src}
-                  alt={item.title}
-                  fill
-                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                />
+        {/* Poster Showcase Grid: Reliable & Instant on All Devices */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+          {filteredItems.map((item) => (
+            <div
+              key={item.id}
+              className="group relative aspect-[2/3] w-full rounded-md overflow-hidden bg-[#FAF8F5] border border-[#E8DFC8] hover:border-[#C9A96E] shadow-[0_4px_20px_rgba(28,16,8,0.04)] hover:shadow-[0_16px_40px_rgba(201,169,110,0.22)] transition-all duration-300 cursor-pointer"
+              onClick={() => setActiveModal(item)}
+            >
+              {/* Full Uncut Poster Image */}
+              <Image
+                src={item.src}
+                alt={item.title}
+                fill
+                priority={item.id === 'g-1'}
+                className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              />
 
-                {/* Editorial Vignette on Hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1C1008] via-[#1C1008]/30 to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-300" />
+              {/* Editorial Gradient (Subtle on mobile so title is crisp, hover on desktop) */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1C1008]/90 via-[#1C1008]/20 to-transparent sm:opacity-0 sm:group-hover:opacity-90 transition-opacity duration-300" />
 
-                {/* Top Corner Pill */}
-                <div className="absolute top-3 left-3 bg-[#FAF8F5]/90 text-[#1C1008] text-[9px] tracking-[0.25em] uppercase font-semibold px-2.5 py-1 rounded-full border border-[#C9A96E]/30 backdrop-blur-sm shadow-sm group-hover:bg-[#1C1008]/90 group-hover:text-[#FAF8F5] transition-colors">
-                  {item.category}
-                </div>
+              {/* Top Corner Pill */}
+              <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 bg-[#FAF8F5]/90 text-[#1C1008] text-[9px] tracking-[0.2em] sm:tracking-[0.25em] uppercase font-semibold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full border border-[#C9A96E]/30 shadow-sm z-10">
+                {item.category}
+              </div>
 
-                {/* Hover Content */}
-                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <h3 className="font-display text-lg sm:text-xl text-[#FAF8F5] leading-tight mb-1 font-light">
-                    {item.title}
-                  </h3>
-                  <p className="text-[11px] text-[#E8D5B0]/80 line-clamp-1 mb-3 leading-relaxed">
-                    {item.tagline}
-                  </p>
+              {/* Bottom Content Card */}
+              <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5 flex flex-col justify-end z-10 transition-all duration-300 sm:translate-y-4 sm:group-hover:translate-y-0 sm:opacity-0 sm:group-hover:opacity-100">
+                <h3 className="font-display text-sm sm:text-xl text-[#FAF8F5] leading-tight mb-0.5 sm:mb-1 font-light">
+                  {item.title}
+                </h3>
+                <p className="hidden sm:block text-[11px] text-[#E8D5B0]/80 line-clamp-1 mb-3 leading-relaxed">
+                  {item.tagline}
+                </p>
 
-                  <div className="flex items-center justify-between pt-2 border-t border-[#C9A96E]/30">
-                    <span className="font-display text-lg text-[#9E6B1F] font-bold">
-                      {formatPrice(item.price)}
-                    </span>
-                    <div className="flex items-center gap-1.5">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setActiveModal(item);
-                        }}
-                        className="p-2 bg-white/10 hover:bg-[#C9A96E] text-[#FAF8F5] hover:text-[#1C1008] transition-colors rounded-sm"
-                        title="Enlarge creation"
-                      >
-                        <Eye className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        onClick={(e) => handleQuickAdd(item, e)}
-                        className="inline-flex items-center gap-1 bg-[#C9A96E] text-[#1C1008] hover:bg-[#FAF8F5] font-semibold px-3 py-1.5 text-[10px] uppercase tracking-wider transition-colors rounded-sm shadow-md"
-                        title="Add to basket"
-                      >
-                        <ShoppingBag className="w-3 h-3" />
-                        <span>Add</span>
-                      </button>
-                    </div>
+                <div className="flex items-center justify-between pt-1.5 sm:pt-2 border-t border-[#C9A96E]/30">
+                  <span className="font-display text-sm sm:text-lg text-[#C9A96E] font-bold">
+                    {formatPrice(item.price)}
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveModal(item);
+                      }}
+                      className="p-1.5 sm:p-2 bg-white/10 hover:bg-[#C9A96E] text-[#FAF8F5] hover:text-[#1C1008] transition-colors rounded-sm"
+                      title="Enlarge creation"
+                      aria-label="Enlarge creation"
+                    >
+                      <Eye className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                    </button>
+                    <button
+                      onClick={(e) => handleQuickAdd(item, e)}
+                      className="inline-flex items-center gap-1 bg-[#C9A96E] text-[#1C1008] hover:bg-[#FAF8F5] font-semibold px-2 sm:px-3 py-1 sm:py-1.5 text-[9px] sm:text-[10px] uppercase tracking-wider transition-colors rounded-sm shadow-md"
+                      title="Add to basket"
+                    >
+                      <ShoppingBag className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                      <span>Add</span>
+                    </button>
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Interactive Lightbox / Modal */}
